@@ -11,7 +11,7 @@ const ANSWERS: Record<string, { label: string; startsAt: number }> = {
   "yani-123795": { label: "Yang buat hati aku cair", startsAt: 2 },
   "yani-121672": { label: "You made me feel special", startsAt: 1 },
   "yani-123515": { label: "Yang ni manis sangat", startsAt: 1 },
-  "yani-121024": { label: "Terus senyum bila baca ni", startsAt: 2 },
+  "yani-121024": { label: "Terus ketawa bila baca ni", startsAt: 2 },
   "yani-118526": { label: "Sweet of you to say that", startsAt: 1 },
 };
 
