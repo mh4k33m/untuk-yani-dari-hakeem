@@ -91,9 +91,6 @@ function Hero({ open, onOpen }: { open: boolean; onOpen: () => void }) {
               <button className="gift-button" onClick={onOpen}>
                 Buka surat aku <span aria-hidden="true">↗</span>
               </button>
-              <button className="text-button" onClick={onOpen}>
-                Terus baca
-              </button>
             </div>
           ) : (
             <a className="text-button hero-return" href="#letter">
@@ -102,7 +99,6 @@ function Hero({ open, onOpen }: { open: boolean; onOpen: () => void }) {
           )}
         </div>
         <div className="scene-postcard">
-          <div className="postcard-tape" aria-hidden="true" />
           <SeasideScene className="hero-scene" />
           <div className="postcard-caption">
             <span>langit, laut & senja</span>

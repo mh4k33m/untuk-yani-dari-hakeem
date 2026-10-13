@@ -35,7 +35,9 @@ function CardDecoration({ id }: { id: string }) {
     );
   if (id === "yani-125106") return <LittleBee className="memory-doodle" />;
   if (id === "yani-123249") return <LittleAnt className="memory-doodle" />;
-  return <Tulip className="memory-flower" />;
+  if (["yani-124804", "yani-122652", "yani-125022"].includes(id))
+    return <Tulip className="memory-flower" />;
+  return null;
 }
 
 export function HighlightCard({ m, index }: { m: Moment; index: number }) {
@@ -92,9 +94,10 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
     <article
       className={`memory-card ${m.category === "poetry" ? "poetry-card" : ""} ${isLong ? "long-letter-card" : ""} ${index % 2 ? "card-soft-pink" : "card-soft-cream"}`}
     >
-      <div className="memory-tape" aria-hidden="true" />
-      <CardDecoration id={m.id} />
-      <h3>{m.title}</h3>
+      <div className="memory-heading">
+        <h3>{m.title}</h3>
+        <CardDecoration id={m.id} />
+      </div>
       <div className="memory-body">{body}</div>
     </article>
   );
