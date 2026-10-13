@@ -116,7 +116,7 @@ function Highlights() {
   const list = HIGHLIGHT_IDS.map((id) => moments.find((m) => m.id === id)!).filter(Boolean);
   return (
     <section aria-labelledby="ingat" className="mx-auto max-w-2xl px-5 py-12">
-      <SectionTitle id="ingat" sub="Kata-kata yang kamu kongsi, dan sedikit balasan dari aku.">Aku ingat yang ini…</SectionTitle>
+      <SectionTitle id="ingat" sub="Kata-kata yang kamu kongsi, aku baca semula satu per satu.">Aku ingat yang ini…</SectionTitle>
       <div className="space-y-10">
         {list.map((m, i) => <HighlightCard key={m.id} m={m} index={i} />)}
       </div>

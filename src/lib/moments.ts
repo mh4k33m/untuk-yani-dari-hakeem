@@ -7,7 +7,7 @@ export type Moment = {
   title: string;
   date: string;
   quotes: string[];
-  response: string | null;
+  response?: string | null;
   excerpt?: boolean;
 };
 
