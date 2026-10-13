@@ -8,6 +8,6 @@ describe("moments", () => {
   it("category filter is chronological", () => {
     const l = filterMoments(moments, "poetry", "");
     expect(l.every((m) => m.category === "poetry")).toBe(true);
-    expect(l[0].date).toBe("26.09.2026");
+    expect(l[0]?.date).toBe("26.09.2026");
   });
 });

@@ -46,7 +46,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
       </>
     );
   } else if (isLong) {
-    const text = m.quotes[0];
+    const text = m.quotes[0] ?? "";
     const parts = text.split("\n\n");
     const shown = expanded ? text : parts.slice(0, 3).join("\n\n") + "…";
     body = (
