@@ -9,11 +9,12 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Untuk Yani 🌷, dari Hakeem" },
-      { name: "description", content: "Untuk kamu, Yani. Dari Hakeem." },
+      { name: "description", content: "Something I wanted you to know." },
       { property: "og:title", content: "Untuk Yani 🌷, dari Hakeem" },
-      { property: "og:description", content: "Untuk Yani 🌷, dari Hakeem." },
+      { property: "og:description", content: "Something I wanted you to know." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:description", content: "Something I wanted you to know." },
     ],
   }),
   component: Index,

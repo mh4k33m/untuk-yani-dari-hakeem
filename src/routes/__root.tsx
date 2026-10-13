@@ -74,7 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Untuk Yani 🌷, dari Hakeem" },
-      { name: "description", content: "Surat kecil dari Hakeem untuk Yani." },
+      { name: "description", content: "Something I wanted you to know." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
