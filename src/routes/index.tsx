@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ButterflyNote } from "@/components/ButterflyNote";
 import { HighlightCard } from "@/components/MomentCard";
 import { NoteIllustration } from "@/components/NoteIllustration";
@@ -38,10 +38,10 @@ function Index() {
     return () => window.clearTimeout(timer);
   }, [phase]);
   const letterRef = useRef<HTMLHeadingElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open) {
       letterRef.current?.focus({ preventScroll: true });
-      letterRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
   }, [open]);
   useEffect(() => {

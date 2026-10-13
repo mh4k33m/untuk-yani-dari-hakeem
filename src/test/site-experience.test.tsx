@@ -11,6 +11,7 @@ beforeAll(() => {
   });
 });
 beforeEach(() => {
+  vi.spyOn(window, "scrollTo").mockImplementation(() => {});
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
     this: HTMLElement,
   ) {
@@ -163,5 +164,11 @@ describe("personal site experience", () => {
     vi.stubGlobal("scrollY", 100);
     fireEvent.scroll(window);
     expect(screen.getByRole("button", { name: "Scroll down" })).toBeVisible();
+  });
+  it("opens the letter at the absolute top instead of scrolling to its greeting", () => {
+    vi.stubGlobal("scrollY", 400);
+    openLetter();
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, left: 0, behavior: "instant" });
+    expect(screen.getByRole("heading", { name: "Yaniii," })).toHaveFocus();
   });
 });
