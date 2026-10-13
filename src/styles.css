@@ -1480,3 +1480,91 @@ button {
     transform: none;
   }
 }
+
+/* A quiet invitation to keep reading, visible as soon as the letter opens. */
+.scroll-cue-container {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding: 16px 24px max(12px, env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, #fff9f800, #fff9f8eb 55%);
+  pointer-events: none;
+}
+.scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 48px;
+  padding: 4px 18px;
+  color: #965572;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  pointer-events: auto;
+  text-decoration: none;
+  border-radius: 3px;
+  animation: cue-arrive 0.7s ease both;
+}
+.scroll-cue-doodle {
+  width: 16px;
+  height: 24px;
+  animation: scroll-nudge 2s ease-in-out infinite;
+}
+#simpan {
+  scroll-margin-top: 24px;
+}
+@keyframes scroll-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+@keyframes cue-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue,
+  .scroll-cue-doodle {
+    animation: none !important;
+  }
+}
+
+.scroll-cue {
+  background: transparent;
+  border: 0;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.scroll-cue-arrow {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid #e2b9cb;
+  border-radius: 50%;
+  background: #fffafde8;
+  box-shadow: 0 5px 14px #a9618020;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.scroll-cue:active .scroll-cue-arrow {
+  background: #f9dfe9;
+  box-shadow: 0 2px 6px #a9618018;
+}
+@media (hover: hover) {
+  .scroll-cue:hover .scroll-cue-arrow {
+    background: #fce7f0;
+  }
+}

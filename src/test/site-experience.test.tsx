@@ -118,4 +118,19 @@ describe("personal site experience", () => {
     expect(answer).toBeVisible();
     expect(mie.getByText("Gimana cara bacanya dan bunyinya?")).toBeVisible();
   });
+  it("offers a down-arrow scroll control that takes her to the favourites", () => {
+    openLetter();
+    const cue = screen.getByRole("button", { name: "Scroll down" });
+    fireEvent.click(cue);
+    expect(screen.getByRole("heading", { name: "Yang buat aku senyum" })).toHaveFocus();
+    expect(screen.queryByRole("button", { name: "Scroll down" })).not.toBeInTheDocument();
+  });
+
+  it("dismisses the scroll cue after she starts scrolling", () => {
+    openLetter();
+    expect(screen.getByRole("button", { name: "Scroll down" })).toBeVisible();
+    vi.stubGlobal("scrollY", 100);
+    fireEvent.scroll(window);
+    expect(screen.queryByRole("button", { name: "Scroll down" })).not.toBeInTheDocument();
+  });
 });

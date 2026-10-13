@@ -30,6 +30,7 @@ const APOLOGY = [
 function Index() {
   const [phase, setPhase] = useState<"sealed" | "opening" | "open">("sealed");
   const open = phase === "open";
+  const [showScrollCue, setShowScrollCue] = useState(true);
   useEffect(() => {
     if (phase !== "opening") return;
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -42,6 +43,18 @@ function Index() {
       letterRef.current?.focus({ preventScroll: true });
       letterRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
     }
+  }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    const startY = window.scrollY;
+    const dismissOnScroll = () => {
+      if (window.scrollY > startY + 80) {
+        setShowScrollCue(false);
+        window.removeEventListener("scroll", dismissOnScroll);
+      }
+    };
+    window.addEventListener("scroll", dismissOnScroll, { passive: true });
+    return () => window.removeEventListener("scroll", dismissOnScroll);
   }, [open]);
   return (
     <main className="romantic-site">
@@ -67,6 +80,35 @@ function Index() {
           <Favourites />
           <ButterflyNote />
           <Closing />
+        </div>
+      )}
+      {open && showScrollCue && (
+        <div className="scroll-cue-container">
+          <button
+            type="button"
+            className="scroll-cue"
+            aria-label="Scroll down"
+            onClick={() => {
+              setShowScrollCue(false);
+              const target = document.getElementById("simpan");
+              target?.focus({ preventScroll: true });
+              const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+              target?.scrollIntoView({ block: "start", behavior: reduced ? "instant" : "smooth" });
+            }}
+          >
+            <span className="scroll-cue-arrow">
+              <svg className="scroll-cue-doodle" viewBox="0 0 16 24" fill="none" aria-hidden="true">
+                <path
+                  d="M8 2v16m-4-4 4 4 4-4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <span>Scroll down</span>
+          </button>
         </div>
       )}
     </main>
@@ -133,7 +175,9 @@ function Favourites() {
     <section aria-labelledby="simpan" className="favourites-section">
       <div className="section-heading">
         <p className="handwritten">your questions, your sweet answers</p>
-        <h2 id="simpan">Yang buat aku senyum</h2>
+        <h2 id="simpan" tabIndex={-1}>
+          Yang buat aku senyum
+        </h2>
         <p>
           Aku suka semua ayat kamu. These are just a few of my favourites, starting with Jarjit 🤏🏻
         </p>
