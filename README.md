@@ -1,26 +1,40 @@
-# Untuk Yani Dari Hakeem
+# Untuk Yani, dari Hakeem
 
-Implement exactly the screenshot and nothing else
+Surat untuk Yani, dan kata-kata yang aku simpan.
 
-This project was built with [Lovable](https://lovable.dev).
+## Local development
 
-**Live app**: https://untuk-yani-dari-hakeem.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/271eb614-d0d0-4a8a-8b69-3ad2f77312b3).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Use Node.js 22.12 or newer (the deployment workflow uses Node.js 24).
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm ci
 npm run dev
 ```
+
+## Check and build
+
+```sh
+npm test
+npm run build
+npm run preview
+```
+
+Production preview uses the project path `/untuk-yani-dari-hakeem/`.
+The build verifies that `.output/public/index.html` exists and every local
+asset uses that path and exists in the deployment folder.
+
+## Deploy to GitHub Pages
+
+1. Open `docs/pages-workflow.yml` in GitHub and copy its contents. Use **Add file → Create new file** to save them as `.github/workflows/pages.yml` on `main`.
+2. In **Settings → Pages**, choose **GitHub Actions** as the source. Then open **Actions → Deploy to GitHub Pages → Run workflow** and select `main`.
+3. After the workflow completes, the site will be at
+   https://mh4k33m.github.io/untuk-yani-dari-hakeem/.
+
+Deployment is manual; pushing a commit does not publish the site.
+Only `.output/public/` is uploaded. The HTML is prerendered at build time
+and the letter, search, categories, and quote reveals run in the browser.
+No server, database, or environment secrets are needed for the published site.
+
+The app uses React, TanStack Start, Vite, Tailwind CSS, and Nitro.
+If the repository name changes, update the project path in `vite.config.ts`
+and `scripts/check-pages.mjs`.
