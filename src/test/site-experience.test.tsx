@@ -51,6 +51,8 @@ describe("personal site experience", () => {
     vi.useFakeTimers();
     render(<Page />);
     expect(screen.getByRole("heading", { name: "Untuk Yani." })).toBeVisible();
+    expect(screen.getAllByRole("button")).toHaveLength(1);
+    expect(screen.queryByText("Buka surat aku")).not.toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Yaniii," })).not.toBeInTheDocument();
     const button = screen.getByRole("button", { name: "Buka surat aku" });
     fireEvent.click(button);
@@ -88,12 +90,13 @@ describe("personal site experience", () => {
     expect(screen.queryByText("Maaf ya, Yaniii 🤍")).not.toBeInTheDocument();
   });
 
-  it("reveals her direct question in the apple joke", () => {
+  it("replaces the apple joke with her semenjak kenal kamu line", () => {
     const gallery = openLetter();
     const card = within(
-      gallery.getAllByRole("article").find((a) => a.textContent?.includes("Nabila dan Abi"))!,
+      gallery.getAllByRole("article").find((a) => a.textContent?.includes("Semenjak kenal kamu"))!,
     );
-    const answer = card.getByText("Kamu suka aku gak?????");
+    expect(gallery.queryByText("Nabila dan Abi")).not.toBeInTheDocument();
+    const answer = card.getByText(/Semenjakkk kenal kamuuuu/);
     expect(answer).not.toBeVisible();
     fireEvent.click(card.getByRole("button", { name: "Baca sambungannya" }));
     expect(answer).toBeVisible();

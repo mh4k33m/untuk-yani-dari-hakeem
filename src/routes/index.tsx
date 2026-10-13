@@ -116,9 +116,6 @@ function Envelope({ opening, onOpen }: { opening: boolean; onOpen: () => void })
             <span className="tape-label">open me ♡</span>
           </span>
         </span>
-        <span className="envelope-prompt" aria-hidden="true">
-          Buka surat aku <span>↗</span>
-        </span>
       </button>
       <p className="envelope-whisper">something I wanted you to know.</p>
       <p className="sr-only" role="status">
@@ -158,7 +155,7 @@ function Closing() {
           baik untuk kita 🤍
         </p>
         <p className="signature">— Hakeem</p>
-        <button className="hug-button" onClick={() => setHug(true)}>
+        <button className="hug-button paper-button" onClick={() => setHug(true)}>
           Peluk kecil untuk kamu <span aria-hidden="true">♡</span>
         </button>
         <p aria-live="polite" className="hug-message">

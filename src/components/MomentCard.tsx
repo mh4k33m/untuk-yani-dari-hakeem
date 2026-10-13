@@ -5,7 +5,6 @@ import { LittleAnt, LittleBee } from "./Seaside";
 
 const RIDDLE_IDS = new Set([
   "yani-125255",
-  "yani-124941",
   "yani-123795",
   "yani-124513",
   "yani-124679",
@@ -60,7 +59,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
           aria-expanded={revealed}
           aria-controls={answerId}
           onClick={() => setRevealed((v) => !v)}
-          className="memory-action"
+          className="memory-action paper-button"
         >
           {revealed ? "Tutup dulu" : "Baca sambungannya"}
           <span aria-hidden="true">{revealed ? "−" : "↗"}</span>
@@ -81,7 +80,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
           aria-expanded={expanded}
           aria-controls={answerId}
           onClick={() => setExpanded((v) => !v)}
-          className="memory-action"
+          className="memory-action paper-button"
         >
           {expanded ? "Ringkaskan" : "Baca surat penuh"}
           <span aria-hidden="true">{expanded ? "−" : "↗"}</span>
