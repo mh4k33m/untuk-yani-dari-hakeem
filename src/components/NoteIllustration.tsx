@@ -9,19 +9,22 @@ type Motif =
   | "sunset"
   | "rings"
   | "letter"
-  | "tulips";
+  | "tulips"
+  | "noodles"
+  | "footsteps"
+  | "sweet";
 
 const MOTIFS: Record<string, Motif> = {
   "yani-125255": "jarjit",
   "yani-124513": "numbers",
   "yani-124993": "home",
   "yani-125106": "bee",
-  "yani-124658": "breath",
+  "yani-124679": "noodles",
   "yani-123795": "sea",
-  "yani-125020": "stars",
-  "yani-124804": "sunset",
-  "yani-124755": "rings",
-  "yani-125022": "letter",
+  "yani-121672": "stars",
+  "yani-123515": "footsteps",
+  "yani-121024": "tulips",
+  "yani-118526": "sweet",
 };
 
 const heart = "M0 3C-7-5-13 1-10 7L0 16 10 7C13 1 7-5 0 3Z";
@@ -160,6 +163,38 @@ export function NoteIllustration({
           />
           <path d="m30 8 6 5 4-9 4 9 6-5c1 13-4 19-10 19S29 21 30 8Z" fill="#cb8ca8" />
           <path d="m31 49 14 2-4 9-9-2Z" fill="#f6deea" />
+        </>
+      );
+      break;
+    case "noodles":
+      drawing = (
+        <>
+          <path d="M12 35h56c-2 17-13 24-28 24S14 52 12 35Z" fill="#f6deea" />
+          <path
+            d="M17 40h46m-8-32 9 27m-2-29 8 28M25 34c-9-12 14-15 4-27m10 27c-9-12 14-15 4-27"
+            stroke="#cb8ca8"
+          />
+          <path d={heart} transform="translate(40 41) scale(.6)" fill="#efc4d6" stroke="none" />
+        </>
+      );
+      break;
+    case "footsteps":
+      drawing = (
+        <>
+          <path d="M8 48q16-18 33-2t31-2" stroke="#d9a5bf" strokeDasharray="2 4" />
+          <ellipse cx="22" cy="29" rx="5" ry="10" transform="rotate(-22 22 29)" fill="#efc4d6" />
+          <ellipse cx="44" cy="38" rx="5" ry="10" transform="rotate(-22 44 38)" fill="#f6deea" />
+          <path d={heart} transform="translate(59 10) scale(.85)" fill="#cb8ca8" stroke="none" />
+        </>
+      );
+      break;
+    case "sweet":
+      drawing = (
+        <>
+          <path d="M23 17h34v7H23Zm3 7h28l4 8v24H22V32Z" fill="#f6deea" />
+          <path d="M23 17h34m-28-5h22m-26 32h30" />
+          <path d={heart} transform="translate(40 31) scale(.8)" fill="#cb8ca8" stroke="none" />
+          <path d="m12 16 1 4 4 1-4 1-1 4-1-4-4-1 4-1Z" fill="#efc4d6" stroke="none" />
         </>
       );
       break;

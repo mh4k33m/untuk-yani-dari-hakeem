@@ -43,7 +43,7 @@ describe("personal site experience", () => {
     expect(first.getByRole("heading", { level: 3 })).toHaveTextContent("Jarjit");
     const answer = first.getByText(/Yaaa karna kalo satu satu nya itu kan kamuuuuu/);
     expect(answer).not.toBeVisible();
-    fireEvent.click(first.getByRole("button", { name: "Jawaban kamu yang sweet sekali" }));
+    fireEvent.click(first.getByRole("button", { name: "Yang buat aku malu 🫠" }));
     expect(answer).toBeVisible();
     expect(first.queryByRole("button")).not.toBeInTheDocument();
     expect(answer.closest(".revealed-answer")).toHaveFocus();
@@ -88,8 +88,9 @@ describe("personal site experience", () => {
     act(() => vi.runAllTimers());
     const letter = within(screen.getByRole("region", { name: "Yaniii," }));
     expect(letter.getAllByText(/Yaniii/)).toHaveLength(1);
-    fireEvent.click(screen.getByRole("button", { name: "Peluk kecil untuk kamu" }));
-    expect(screen.queryByText("Maaf ya, Yaniii 🤍")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Satu hal lagi" }));
+    expect(screen.getByText(/Aku harap kamu rasa dihargai/)).toBeVisible();
+    expect(screen.queryByRole("button", { name: "Satu hal lagi" })).not.toBeInTheDocument();
   });
 
   it("replaces the apple joke with her semenjak kenal kamu line", () => {
@@ -100,15 +101,21 @@ describe("personal site experience", () => {
     expect(gallery.queryByText("Nabila dan Abi")).not.toBeInTheDocument();
     const answer = card.getByText(/Semenjakkk kenal kamuuuu/);
     expect(answer).not.toBeVisible();
-    fireEvent.click(card.getByRole("button", { name: "Jawaban kamu yang sweet sekali" }));
+    fireEvent.click(card.getByRole("button", { name: "This made my day" }));
     expect(answer).toBeVisible();
   });
-  it("shows her entire future-husband letter without an expansion button", () => {
+  it("shows ten distinct answer openers and no pantun or long letter", () => {
     const gallery = openLetter();
-    const cards = gallery.getAllByRole("article");
-    const letter = within(cards[cards.length - 1]!);
-    expect(letter.getByRole("heading", { name: "Surat untuk calon suami" })).toBeVisible();
-    expect(letter.getByText(/Aamiin ya Rabbal/)).toBeVisible();
-    expect(letter.queryByRole("button")).not.toBeInTheDocument();
+    const buttons = gallery.getAllByRole("button");
+    expect(buttons).toHaveLength(10);
+    expect(new Set(buttons.map((button) => button.textContent)).size).toBe(10);
+    expect(gallery.queryByText("Surat untuk calon suami")).not.toBeInTheDocument();
+    expect(gallery.queryByText("Sunset dan hati lengket")).not.toBeInTheDocument();
+    const mie = within(gallery.getAllByRole("article")[4]!);
+    const answer = mie.getByText("Me And You lahhhhhhhhhhhhhhhh😌");
+    expect(answer).not.toBeVisible();
+    fireEvent.click(mie.getByRole("button", { name: "I like the sound of this" }));
+    expect(answer).toBeVisible();
+    expect(mie.getByText("Gimana cara bacanya dan bunyinya?")).toBeVisible();
   });
 });

@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Tulip } from "@/components/Decor";
 import { HighlightCard } from "@/components/MomentCard";
 import { NoteIllustration } from "@/components/NoteIllustration";
 import { SeasideScene } from "@/components/Seaside";
@@ -130,7 +129,7 @@ function Favourites() {
   return (
     <section aria-labelledby="simpan" className="favourites-section">
       <div className="section-heading">
-        <p className="handwritten">your pantun, your jokes, your words</p>
+        <p className="handwritten">your questions, your sweet answers</p>
         <h2 id="simpan">Yang buat aku senyum</h2>
         <p>Antara favourites aku. Starting with Jarjit, of course 🤏🏻</p>
       </div>
@@ -144,7 +143,11 @@ function Favourites() {
 }
 
 function Closing() {
-  const [hug, setHug] = useState(false);
+  const [lastNote, setLastNote] = useState(false);
+  const noteRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (lastNote) noteRef.current?.focus({ preventScroll: true });
+  }, [lastNote]);
   return (
     <footer className="romantic-closing">
       <SeasideScene className="closing-scene" />
@@ -156,18 +159,15 @@ function Closing() {
           baik untuk kita 🤍
         </p>
         <p className="signature">— Hakeem</p>
-        <button className="hug-button note-button" onClick={() => setHug(true)}>
-          Peluk kecil untuk kamu <span aria-hidden="true">♡</span>
-        </button>
-        <p aria-live="polite" className="hug-message">
-          {hug ? "Sending you a little hug 🤍" : ""}
-        </p>
-        {hug && (
-          <div className="hug-tulips" aria-hidden="true">
-            {[0, 1, 2].map((i) => (
-              <Tulip key={i} className="hug-flower" />
-            ))}
-          </div>
+        {!lastNote && (
+          <button className="last-note-button note-button" onClick={() => setLastNote(true)}>
+            Satu hal lagi <span aria-hidden="true">♡</span>
+          </button>
+        )}
+        {lastNote && (
+          <p ref={noteRef} tabIndex={-1} className="last-note-message animate-rise">
+            Aku harap kamu rasa dihargai bila baca ni. Because you are 🤍
+          </p>
         )}
       </div>
     </footer>

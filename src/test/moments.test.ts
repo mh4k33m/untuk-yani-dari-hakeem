@@ -10,8 +10,8 @@ describe("moments", () => {
   it("search matches quote text", () =>
     expect(filterMoments(moments, "all", "jarjit").some((m) => m.id === "yani-125255")).toBe(true));
   it("category filter is chronological", () => {
-    const l = filterMoments(moments, "poetry", "");
-    expect(l.every((m) => m.category === "poetry")).toBe(true);
-    expect(l[0]?.date).toBe("12.10.2026");
+    const l = filterMoments(moments, "wordplay", "");
+    expect(l.every((m) => m.category === "wordplay")).toBe(true);
+    expect(l[0]?.date).toBe("28.09.2026");
   });
 });

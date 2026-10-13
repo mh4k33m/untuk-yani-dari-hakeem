@@ -2,15 +2,18 @@ import { useEffect, useId, useRef, useState } from "react";
 import { type Moment } from "@/lib/moments";
 import { NoteIllustration } from "./NoteIllustration";
 
-const RIDDLE_IDS = new Set([
-  "yani-125255",
-  "yani-123795",
-  "yani-124513",
-  "yani-124679",
-  "yani-124993",
-  "yani-125106",
-]);
-const LONG_ID = "yani-125022";
+const ANSWERS: Record<string, { label: string; startsAt: number }> = {
+  "yani-125255": { label: "Yang buat aku malu 🫠", startsAt: 2 },
+  "yani-124513": { label: "Okay, you got me", startsAt: 3 },
+  "yani-124993": { label: "This made my day", startsAt: 2 },
+  "yani-125106": { label: "Macam mana aku tak senyum?", startsAt: 1 },
+  "yani-124679": { label: "I like the sound of this", startsAt: 2 },
+  "yani-123795": { label: "Yang buat hati aku cair", startsAt: 2 },
+  "yani-121672": { label: "You made me feel special", startsAt: 1 },
+  "yani-123515": { label: "Yang ni manis sangat", startsAt: 1 },
+  "yani-121024": { label: "Terus senyum bila baca ni", startsAt: 2 },
+  "yani-118526": { label: "Sweet of you to say that", startsAt: 1 },
+};
 
 function Quotes({ quotes }: { quotes: string[] }) {
   return (
@@ -31,14 +34,12 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
   useEffect(() => {
     if (revealed) answerRef.current?.focus({ preventScroll: true });
   }, [revealed]);
-  const isRiddle = RIDDLE_IDS.has(m.id) && m.quotes.length > 1;
-  const isLong = m.id === LONG_ID;
+  const reveal = ANSWERS[m.id];
   let body;
-  if (isRiddle) {
-    const question = m.quotes.slice(0, -1);
-    const answer = m.quotes.at(-1)!;
-    const label =
-      m.id === "yani-123795" ? "Yang buat aku senyum" : "Jawaban kamu yang sweet sekali";
+  if (reveal && m.quotes.length > 1) {
+    const question = m.quotes.slice(0, reveal.startsAt);
+    const answers = m.quotes.slice(reveal.startsAt);
+    const label = reveal.label;
     body = (
       <>
         <Quotes quotes={question} />
@@ -51,7 +52,6 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
             className="memory-action note-button"
           >
             {label}
-            <span aria-hidden="true">↗</span>
           </button>
         )}
         <div
@@ -61,14 +61,14 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
           hidden={!revealed}
           className="revealed-answer animate-rise"
         >
-          <Quotes quotes={[answer]} />
+          <Quotes quotes={answers} />
         </div>
       </>
     );
   } else body = <Quotes quotes={m.quotes} />;
   return (
     <article
-      className={`memory-card ${m.category === "poetry" ? "poetry-card" : ""} ${isLong ? "long-letter-card" : ""} ${index % 2 ? "card-soft-pink" : "card-soft-cream"}`}
+      className={`memory-card ${m.category === "poetry" ? "poetry-card" : ""} ${index % 2 ? "card-soft-pink" : "card-soft-cream"}`}
     >
       <div className="memory-heading">
         <h3>{m.title}</h3>

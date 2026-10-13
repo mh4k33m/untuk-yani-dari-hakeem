@@ -652,26 +652,15 @@ button {
   text-align: center;
   margin: 22px 0;
 }
-.hug-button {
+.last-note-button {
   margin-top: 4px;
 }
-.hug-message {
+.last-note-message {
   min-height: 30px;
   font-family: var(--font-hand);
   font-size: 1.35rem;
   margin-top: 16px;
   color: #a4657d;
-}
-.hug-tulips {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 10px;
-}
-.hug-flower {
-  width: 20px;
-  height: 33px;
-  animation: rise-in 0.4s ease both;
 }
 @media (min-width: 640px) {
   .romantic-hero {
@@ -1129,6 +1118,9 @@ button {
   border: 1px solid #e2b9cb;
   border-radius: 999px;
   background: #fce9f0;
+  box-shadow:
+    0 3px 0 #ddb1c4,
+    0 6px 14px #9b586e18;
   font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.5;
@@ -1137,6 +1129,7 @@ button {
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
+    box-shadow 0.2s ease,
     transform 0.2s ease;
 }
 .note-button > span {
@@ -1147,7 +1140,10 @@ button {
   border-color: #cd8faa;
 }
 .note-button:active {
-  transform: scale(0.97);
+  transform: translateY(2px) scale(0.98);
+  box-shadow:
+    0 1px 0 #ddb1c4,
+    0 2px 5px #9b586e12;
 }
 .note-button:focus-visible {
   outline: 2px solid #a9627b;
@@ -1157,6 +1153,9 @@ button {
   .note-button:hover {
     background: #f4d5e3;
     border-color: #cd8faa;
+    box-shadow:
+      0 5px 0 #ddb1c4,
+      0 9px 18px #9b586e20;
     transform: translateY(-2px);
   }
 }
@@ -1199,7 +1198,7 @@ button {
 }
 
 .closing-letter {
-  border-radius: 28px;
+  border-radius: 8px;
 }
 
 /* Individual messages, softly held in pink and off-white. */
@@ -1215,20 +1214,26 @@ button {
   border-radius: 22px 22px 7px 22px;
   background: #f9dfe9;
 }
-.letter-copy p {
-  padding: 20px;
-  border: 1px solid #f0dce5;
-  border-radius: 22px 22px 22px 7px;
-  background: #fff1f5;
-}
+
 .letter-copy p + p {
-  margin-top: 14px;
+  margin-top: 24px;
 }
 @media (min-width: 640px) {
   .memory-quotes .quote-text {
     padding: 22px 24px;
   }
-  .letter-copy p {
-    padding: 24px 26px;
+}
+
+/* The opening apology keeps the proportions of a paper letter. */
+.letter-sheet {
+  padding: 28px 24px 30px;
+  border: 1px solid #efdde4;
+  border-radius: 8px;
+  background: #fffdfb;
+  box-shadow: 0 14px 35px -26px #ae738d40;
+}
+@media (min-width: 640px) {
+  .letter-sheet {
+    padding: 40px 46px;
   }
 }

@@ -23,9 +23,9 @@ export const CATEGORY_LABEL: Record<Category, string> = {
 export const HIGHLIGHT_IDS = [
   "yani-125255",
   "yani-124513",
-  "yani-124804",
+  "yani-124993",
   "yani-125106",
-  "yani-125022",
+  "yani-124679",
 ];
 
 const MONTHS = ["Jan", "Feb", "Mac", "Apr", "Mei", "Jun", "Jul", "Ogo", "Sep", "Okt", "Nov", "Dis"];
