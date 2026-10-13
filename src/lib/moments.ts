@@ -23,9 +23,8 @@ export const CATEGORY_LABEL: Record<Category, string> = {
 export const HIGHLIGHT_IDS = [
   "yani-125255",
   "yani-124513",
-  "yani-124679",
-  "yani-124993",
   "yani-124804",
+  "yani-122652",
   "yani-125022",
 ];
 

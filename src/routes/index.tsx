@@ -1,14 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Moon, Star, Tulip, Waves } from "@/components/Decor";
-import { ArchiveCard, HighlightCard } from "@/components/MomentCard";
-import {
-  CATEGORY_LABEL,
-  HIGHLIGHT_IDS,
-  filterMoments,
-  moments,
-  type Category,
-} from "@/lib/moments";
+import { useEffect, useRef, useState } from "react";
+import { Tulip } from "@/components/Decor";
+import { HighlightCard } from "@/components/MomentCard";
+import { SeasideScene } from "@/components/Seaside";
+import { LittleThings } from "@/components/LittleThings";
+import { moments } from "@/lib/moments";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,211 +21,127 @@ export const Route = createFileRoute("/")({
 });
 
 const APOLOGY = [
-  "Yaniii, I'm sorry for what I said malam tu. Bila aku cakap kamu macam udah biasa bagi ayat-ayat tu, aku buat kamu rasa macam aku meragui kamu. I shouldn't have said it that way.",
+  "Yaniii, I'm sorry for what I said tadi. Bila aku cakap kamu macam udah biasa bagi ayat-ayat tu, aku buat kamu rasa macam aku meragui kamu. I shouldn't have said it that way.",
   "I like your pantun, your random questions, and the way you make me smile. Kadang aku malu sampai tak tahu nak balas apa 🫠 But I don't want my awkward replies to make you feel like I don't appreciate you.",
   "Thank you for being yourself with me. Aku suka kamu seadanya, termasuk yang suka bergurau dan bagi ayat manis tu. I kept a few of my favourites here. Just wanted you to know they mean something to me 🤍",
 ];
 
 function Index() {
   const [open, setOpen] = useState(false);
-  const [animating, setAnimating] = useState(false);
   const letterRef = useRef<HTMLHeadingElement>(null);
-
-  const openLetter = (animate: boolean) => {
-    if (animate) setAnimating(true);
-    setOpen(true);
-  };
   useEffect(() => {
     if (open) {
       letterRef.current?.focus({ preventScroll: true });
       letterRef.current?.scrollIntoView({ block: "start" });
     }
   }, [open]);
-
   return (
-    <main className="min-h-screen">
-      <Envelope
-        open={open}
-        animating={animating}
-        onOpen={() => openLetter(true)}
-        onSkip={() => openLetter(false)}
-      />
+    <main className="romantic-site">
+      <Hero open={open} onOpen={() => setOpen(true)} />
       {open && (
-        <>
-          <section aria-labelledby="letter" className="mx-auto max-w-2xl px-5 py-14">
-            <div className="paper animate-rise rounded-2xl px-6 py-9 sm:px-10">
-              <h1
-                id="letter"
-                ref={letterRef}
-                tabIndex={-1}
-                className="scroll-mt-8 text-4xl font-semibold leading-tight text-ink sm:text-5xl"
-              >
+        <div className="opened-letter">
+          <section aria-labelledby="letter" className="letter-section">
+            <div className="letter-sheet animate-rise">
+              <div className="letter-topline">
+                <span>untuk kamu</span>
+                <Tulip className="letter-flower" />
+              </div>
+              <h2 id="letter" ref={letterRef} tabIndex={-1}>
                 Yaniii,
-              </h1>
-              <div className="mt-6 space-y-5 text-[1.08rem] leading-[1.85]">
+              </h2>
+              <div className="letter-copy">
                 {APOLOGY.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>
-              <p className="mt-8 text-right font-hand text-2xl text-primary">— Hakeem</p>
+              <p className="signature">dari aku, Hakeem</p>
             </div>
           </section>
-          <Archive />
+          <LittleThings />
+          <Favourites />
           <Closing />
-        </>
+        </div>
       )}
     </main>
   );
 }
 
-function Envelope({
-  open,
-  animating,
-  onOpen,
-  onSkip,
-}: {
-  open: boolean;
-  animating: boolean;
-  onOpen: () => void;
-  onSkip: () => void;
-}) {
+function Hero({ open, onOpen }: { open: boolean; onOpen: () => void }) {
   return (
-    <header
-      className={`dusk-sky relative overflow-hidden px-5 ${open ? "pb-6 pt-12" : "flex min-h-[100svh] flex-col justify-center py-12"}`}
-    >
-      <Moon className="absolute right-8 top-8 h-12 w-12 drop-shadow" />
-      <Star className="absolute left-10 top-14 h-3 w-3" />
-      <Star className="absolute left-1/3 top-6 h-2 w-2" />
-      <Star className="absolute right-1/3 top-20 h-2.5 w-2.5" />
-      <div className="relative mx-auto w-full max-w-sm text-center">
-        {!open ? (
-          <>
-            <div className="paper relative mx-auto aspect-[4/3] w-full rounded-xl [perspective:600px]">
-              <div
-                className={`absolute inset-x-0 top-0 h-1/2 [clip-path:polygon(0_0,100%_0,50%_100%)] bg-blush ${animating ? "animate-flap" : ""}`}
-              />
-              <div className="flex h-full flex-col items-center justify-end pb-6">
-                <Tulip className="mb-2 h-12 w-8" />
-                <p className="font-serif text-2xl text-ink">Untuk Yani 🌷,</p>
-                <p className="font-hand text-xl text-primary">dari Hakeem</p>
-              </div>
-            </div>
-            <p className="mt-8 font-serif text-xl italic text-ink">Aku ada sesuatu untuk kamu.</p>
-            <button
-              onClick={onOpen}
-              className="mt-6 w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-transform hover:-translate-y-0.5"
-            >
-              Buka surat aku
-            </button>
-            <button
-              onClick={onSkip}
-              className="mt-3 text-sm text-muted-foreground underline underline-offset-4"
-            >
-              Terus baca
-            </button>
-          </>
-        ) : (
-          <p className="font-serif text-xl text-ink">Untuk Yani 🌷, dari Hakeem</p>
-        )}
+    <header className={`romantic-hero ${open ? "hero-open" : ""}`}>
+      <div className="gift-mark">
+        <Tulip className="gift-flower" />
+        <span>
+          Hakeem <span aria-hidden="true">→</span> Yani
+        </span>
       </div>
-      <Waves className="absolute inset-x-0 bottom-0" />
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <p className="handwritten hero-note">a little something, just for you</p>
+          <h1>
+            Untuk <em>Yani.</em>
+          </h1>
+          <p className="hero-description">
+            A little sunset, a few tulips,
+            <br />
+            and something I want to say.
+          </p>
+          {!open ? (
+            <div className="hero-actions">
+              <button className="gift-button" onClick={onOpen}>
+                Buka surat aku <span aria-hidden="true">↗</span>
+              </button>
+              <button className="text-button" onClick={onOpen}>
+                Terus baca
+              </button>
+            </div>
+          ) : (
+            <a className="text-button hero-return" href="#letter">
+              Surat untuk kamu <span aria-hidden="true">↓</span>
+            </a>
+          )}
+        </div>
+        <div className="scene-postcard">
+          <div className="postcard-tape" aria-hidden="true" />
+          <SeasideScene className="hero-scene" />
+          <div className="postcard-caption">
+            <span>langit, laut & senja</span>
+            <span aria-hidden="true">♡</span>
+          </div>
+        </div>
+      </div>
+      <p className="hero-bottom-note">the things you like, in a little place of your own</p>
     </header>
   );
 }
 
-function SectionTitle({
-  id,
-  children,
-  sub,
-}: {
-  id: string;
-  children: React.ReactNode;
-  sub?: string;
-}) {
+function Favourites() {
+  const [limit, setLimit] = useState(5);
   return (
-    <div className="mb-8 text-center">
-      <Tulip className="mx-auto mb-2 h-10 w-6" />
-      <h2 id={id} className="text-3xl font-semibold text-ink sm:text-4xl">
-        {children}
-      </h2>
-      {sub && <p className="mx-auto mt-2 max-w-md text-muted-foreground">{sub}</p>}
-    </div>
-  );
-}
-
-const TABS: (Category | "all")[] = ["all", "poetry", "wordplay", "affection", "values"];
-const PAGE = 12;
-
-function Archive() {
-  const [cat, setCat] = useState<Category | "all">("all");
-  const [q, setQ] = useState("");
-  const [limit, setLimit] = useState(PAGE);
-  const list = useMemo(() => filterMoments(moments, cat, q), [cat, q]);
-  useEffect(() => setLimit(PAGE), [cat, q]);
-
-  return (
-    <section aria-labelledby="simpan" className="bg-accent/40 px-5 py-14">
-      <div className="mx-auto max-w-2xl">
-        <SectionTitle id="simpan" sub="Antara favourites aku.">
-          Yang buat aku senyum
-        </SectionTitle>
-        <div
-          role="tablist"
-          aria-label="Kategori"
-          className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-2"
-        >
-          {TABS.map((t) => (
-            <button
-              key={t}
-              role="tab"
-              aria-selected={cat === t}
-              onClick={() => setCat(t)}
-              className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${cat === t ? "border-primary bg-primary text-primary-foreground" : "border-border bg-paper text-ink hover:bg-accent"}`}
-            >
-              {t === "all" ? "Semua" : CATEGORY_LABEL[t]}
-            </button>
-          ))}
-        </div>
-        <label className="mt-4 block">
-          <span className="sr-only">Cari kata-kata kamu</span>
-          <input
-            type="search"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Cari kata-kata kamu…"
-            className="w-full rounded-full border border-input bg-paper px-5 py-3 text-base placeholder:text-muted-foreground"
-          />
-        </label>
-        <p className="mt-3 text-sm text-muted-foreground" aria-live="polite">
-          {list.length} mesej
-        </p>
-        <div className="mt-4 space-y-5">
-          {list
-            .slice(0, limit)
-            .map((m, i) =>
-              HIGHLIGHT_IDS.includes(m.id) ? (
-                <HighlightCard key={m.id} m={m} index={i} />
-              ) : (
-                <ArchiveCard key={m.id} m={m} />
-              ),
-            )}
-          {list.length === 0 && (
-            <p className="text-center text-muted-foreground">
-              Tiada yang sepadan. Cuba perkataan lain.
-            </p>
-          )}
-        </div>
-        {limit < list.length && (
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => setLimit((l) => l + PAGE)}
-              className="rounded-full border border-primary px-6 py-3 font-medium text-primary hover:bg-paper"
-            >
-              Baca lagi ({list.length - limit} lagi)
-            </button>
-          </div>
-        )}
+    <section aria-labelledby="simpan" className="favourites-section">
+      <div className="section-heading">
+        <p className="handwritten">your pantun, your jokes, your words</p>
+        <h2 id="simpan">Yang buat aku senyum</h2>
+        <p>Antara favourites aku. Starting with Jarjit, of course 🤏🏻</p>
       </div>
+      <div className="favourites-list">
+        {moments.slice(0, limit).map((m, i) => (
+          <HighlightCard key={m.id} m={m} index={i} />
+        ))}
+      </div>
+      <p className="sr-only" aria-live="polite">
+        {limit} of {moments.length} favourites shown.
+      </p>
+      {limit < moments.length && (
+        <div className="read-more-wrap">
+          <button
+            className="read-more-button"
+            onClick={() => setLimit((l) => Math.min(l + 5, moments.length))}
+          >
+            Read {moments.length - limit} more <span aria-hidden="true">↓</span>
+          </button>
+        </div>
+      )}
     </section>
   );
 }
@@ -237,43 +149,30 @@ function Archive() {
 function Closing() {
   const [hug, setHug] = useState(false);
   return (
-    <footer className="dusk-sky relative overflow-hidden px-5 pb-28 pt-16 text-center">
-      <Moon className="absolute left-8 top-8 h-10 w-10" />
-      <div className="mx-auto max-w-xl">
-        <p className="font-serif text-2xl leading-relaxed text-ink sm:text-3xl">
+    <footer className="romantic-closing">
+      <SeasideScene className="closing-scene" />
+      <div className="closing-letter">
+        <Tulip className="closing-flower" />
+        <p className="handwritten">under the same sky</p>
+        <p className="closing-copy">
           Thank you for making me smile, Yani. Aku suka kamu seadanya. Semoga Allah mudahkan yang
           baik untuk kita 🤍
         </p>
-        <p className="mt-4 font-hand text-2xl text-primary">— Hakeem</p>
-        <div className="relative mt-10 inline-block">
-          {hug && (
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 -top-4 flex justify-center gap-3"
-            >
-              {[0, 1, 2, 3, 4].map((i) => (
-                <span
-                  key={i}
-                  className="animate-float-up text-xl"
-                  style={{ animationDelay: `${i * 0.15}s` }}
-                >
-                  {i % 2 ? "🤍" : <Tulip className="h-8 w-5" />}
-                </span>
-              ))}
-            </div>
-          )}
-          <button
-            onClick={() => setHug(true)}
-            className="rounded-full bg-paper px-6 py-3 font-medium text-primary shadow-md"
-          >
-            Peluk kecil untuk kamu
-          </button>
-        </div>
-        <p aria-live="polite" className="mt-5 min-h-7 font-serif text-lg italic text-ink">
+        <p className="signature">— Hakeem</p>
+        <button className="hug-button" onClick={() => setHug(true)}>
+          Peluk kecil untuk kamu <span aria-hidden="true">♡</span>
+        </button>
+        <p aria-live="polite" className="hug-message">
           {hug ? "Maaf ya, Yaniii 🤍" : ""}
         </p>
+        {hug && (
+          <div className="hug-tulips" aria-hidden="true">
+            {[0, 1, 2].map((i) => (
+              <Tulip key={i} className="hug-flower" />
+            ))}
+          </div>
+        )}
       </div>
-      <Waves className="absolute inset-x-0 bottom-0" />
     </footer>
   );
 }
