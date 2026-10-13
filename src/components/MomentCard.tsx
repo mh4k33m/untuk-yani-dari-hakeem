@@ -75,12 +75,6 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
       <h3 className="mt-1 text-2xl font-semibold text-ink">{m.title}</h3>
       <p className="mb-3 mt-4 font-hand text-lg text-tulip">Yang kamu kirim pada aku</p>
       {body}
-      {m.response && (
-        <div className="mt-5 border-l-2 border-sea pl-4">
-          <p className="font-hand text-lg text-primary">Dari aku</p>
-          <p className="font-serif text-lg italic leading-relaxed text-ink">{m.response}</p>
-        </div>
-      )}
     </article>
   );
 }
