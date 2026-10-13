@@ -46,15 +46,19 @@ function Index() {
   }, [open]);
   useEffect(() => {
     if (!open) return;
-    const startY = window.scrollY;
-    const dismissOnScroll = () => {
-      if (window.scrollY > startY + 80) {
-        setShowScrollCue(false);
-        window.removeEventListener("scroll", dismissOnScroll);
-      }
+    const updateScrollCue = () => {
+      const target = document.getElementById("simpan");
+      if (!target) return;
+      const threshold = window.innerHeight * 0.25;
+      setShowScrollCue(target.getBoundingClientRect().top > threshold);
     };
-    window.addEventListener("scroll", dismissOnScroll, { passive: true });
-    return () => window.removeEventListener("scroll", dismissOnScroll);
+    updateScrollCue();
+    window.addEventListener("scroll", updateScrollCue, { passive: true });
+    window.addEventListener("resize", updateScrollCue);
+    return () => {
+      window.removeEventListener("scroll", updateScrollCue);
+      window.removeEventListener("resize", updateScrollCue);
+    };
   }, [open]);
   return (
     <main className="romantic-site">
@@ -89,7 +93,6 @@ function Index() {
             className="scroll-cue"
             aria-label="Scroll down"
             onClick={() => {
-              setShowScrollCue(false);
               const target = document.getElementById("simpan");
               target?.focus({ preventScroll: true });
               const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;

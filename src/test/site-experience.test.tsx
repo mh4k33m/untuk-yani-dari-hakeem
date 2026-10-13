@@ -1,5 +1,5 @@
 import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { Route } from "@/routes/index";
 
 const Page = Route.options.component!;
@@ -10,10 +10,30 @@ beforeAll(() => {
     value: () => {},
   });
 });
+beforeEach(() => {
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
+    this: HTMLElement,
+  ) {
+    const top = this.id === "simpan" ? 1000 - window.scrollY : 0;
+    return {
+      top,
+      bottom: top + 80,
+      left: 0,
+      right: 400,
+      width: 400,
+      height: 80,
+      x: 0,
+      y: top,
+      toJSON: () => ({}),
+    };
+  });
+});
+
 afterEach(() => {
   cleanup();
   vi.useRealTimers();
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
 });
 
 function openLetter() {
@@ -123,14 +143,25 @@ describe("personal site experience", () => {
     const cue = screen.getByRole("button", { name: "Scroll down" });
     fireEvent.click(cue);
     expect(screen.getByRole("heading", { name: "Yang buat aku senyum" })).toHaveFocus();
+    vi.stubGlobal("scrollY", 1000);
+    fireEvent.scroll(window);
     expect(screen.queryByRole("button", { name: "Scroll down" })).not.toBeInTheDocument();
+    vi.stubGlobal("scrollY", 100);
+    fireEvent.scroll(window);
+    expect(screen.getByRole("button", { name: "Scroll down" })).toBeVisible();
   });
 
-  it("dismisses the scroll cue after she starts scrolling", () => {
+  it("keeps the cue through a small scroll, hides near favourites, and reappears above them", () => {
     openLetter();
     expect(screen.getByRole("button", { name: "Scroll down" })).toBeVisible();
     vi.stubGlobal("scrollY", 100);
     fireEvent.scroll(window);
+    expect(screen.getByRole("button", { name: "Scroll down" })).toBeVisible();
+    vi.stubGlobal("scrollY", 820);
+    fireEvent.scroll(window);
     expect(screen.queryByRole("button", { name: "Scroll down" })).not.toBeInTheDocument();
+    vi.stubGlobal("scrollY", 100);
+    fireEvent.scroll(window);
+    expect(screen.getByRole("button", { name: "Scroll down" })).toBeVisible();
   });
 });
