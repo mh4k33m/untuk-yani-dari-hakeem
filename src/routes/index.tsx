@@ -25,9 +25,9 @@ export const Route = createFileRoute("/")({
 });
 
 const APOLOGY = [
-  "Yaniii, maaf sebab aku bilang kamu macam udah biasa bagi ayat-ayat tu. Aku faham kenapa kamu kecil hati. Aku tak patut cakap macam tu.",
-  "Aku sukaa pantun dan gurauan kamu. Kadang aku malu sampai tak tahu nak balas apa, tapi aku tetap kena jaga cara aku cakap. Ayat Jarjit tu pun buat aku senyum sendiri 🫠",
-  "Terima kasih sebab selesa jadi diri sendiri dengan aku. Aku suka kamu seadanya, termasuk yang suka bergurau dan bagi ayat manis tu. Aku kumpulkan kata-kata kamu di sini sebab aku nak kamu tahu yang aku baca dan aku hargai 🤍",
+  "Yaniii, I'm sorry for what I said malam tu. Bila aku cakap kamu macam udah biasa bagi ayat-ayat tu, aku buat kamu rasa macam aku meragui kamu. I shouldn't have said it that way.",
+  "I like your pantun, your random questions, and the way you make me smile. Kadang aku malu sampai tak tahu nak balas apa 🫠 But I don't want my awkward replies to make you feel like I don't appreciate you.",
+  "Thank you for being yourself with me. Aku suka kamu seadanya, termasuk yang suka bergurau dan bagi ayat manis tu. I kept a few of my favourites here. Just wanted you to know they mean something to me 🤍",
 ];
 
 function Index() {
@@ -74,7 +74,6 @@ function Index() {
               <p className="mt-8 text-right font-hand text-2xl text-primary">— Hakeem</p>
             </div>
           </section>
-          <Highlights />
           <Archive />
           <Closing />
         </>
@@ -158,22 +157,6 @@ function SectionTitle({
   );
 }
 
-function Highlights() {
-  const list = HIGHLIGHT_IDS.map((id) => moments.find((m) => m.id === id)!).filter(Boolean);
-  return (
-    <section aria-labelledby="ingat" className="mx-auto max-w-2xl px-5 py-12">
-      <SectionTitle id="ingat" sub="Yang buat aku senyum bila baca balik.">
-        Aku ingat yang ini…
-      </SectionTitle>
-      <div className="space-y-10">
-        {list.map((m, i) => (
-          <HighlightCard key={m.id} m={m} index={i} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
 const TABS: (Category | "all")[] = ["all", "poetry", "wordplay", "affection", "values"];
 const PAGE = 12;
 
@@ -187,8 +170,8 @@ function Archive() {
   return (
     <section aria-labelledby="simpan" className="bg-accent/40 px-5 py-14">
       <div className="mx-auto max-w-2xl">
-        <SectionTitle id="simpan" sub="Aku kumpulkan pantun, ayat dan gurauan kamu di sini.">
-          Ayat-ayat kamu
+        <SectionTitle id="simpan" sub="Antara favourites aku.">
+          Yang buat aku senyum
         </SectionTitle>
         <div
           role="tablist"
@@ -218,12 +201,18 @@ function Archive() {
           />
         </label>
         <p className="mt-3 text-sm text-muted-foreground" aria-live="polite">
-          {list.length} yang aku simpan
+          {list.length} mesej
         </p>
         <div className="mt-4 space-y-5">
-          {list.slice(0, limit).map((m) => (
-            <ArchiveCard key={m.id} m={m} />
-          ))}
+          {list
+            .slice(0, limit)
+            .map((m, i) =>
+              HIGHLIGHT_IDS.includes(m.id) ? (
+                <HighlightCard key={m.id} m={m} index={i} />
+              ) : (
+                <ArchiveCard key={m.id} m={m} />
+              ),
+            )}
           {list.length === 0 && (
             <p className="text-center text-muted-foreground">
               Tiada yang sepadan. Cuba perkataan lain.
@@ -252,8 +241,8 @@ function Closing() {
       <Moon className="absolute left-8 top-8 h-10 w-10" />
       <div className="mx-auto max-w-xl">
         <p className="font-serif text-2xl leading-relaxed text-ink sm:text-3xl">
-          Terima kasih sebab buat aku senyum, Yani. Aku suka kamu seadanya. Semoga Allah mudahkan
-          yang baik untuk kita 🤍
+          Thank you for making me smile, Yani. Aku suka kamu seadanya. Semoga Allah mudahkan yang
+          baik untuk kita 🤍
         </p>
         <p className="mt-4 font-hand text-2xl text-primary">— Hakeem</p>
         <div className="relative mt-10 inline-block">

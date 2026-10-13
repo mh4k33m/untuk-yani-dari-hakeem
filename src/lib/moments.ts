@@ -21,8 +21,12 @@ export const CATEGORY_LABEL: Record<Category, string> = {
 };
 
 export const HIGHLIGHT_IDS = [
-  "yani-125255", "yani-124513", "yani-124679", "yani-124993", "yani-123249", "yani-124745",
-  "yani-122652", "yani-124804", "yani-125022", "yani-123668", "yani-124658", "yani-123929",
+  "yani-125255",
+  "yani-124513",
+  "yani-124679",
+  "yani-124993",
+  "yani-124804",
+  "yani-125022",
 ];
 
 const MONTHS = ["Jan", "Feb", "Mac", "Apr", "Mei", "Jun", "Jul", "Ogo", "Sep", "Okt", "Nov", "Dis"];
@@ -48,7 +52,9 @@ export function filterMoments(list: Moment[], cat: Category | "all", query: stri
     list.filter(
       (m) =>
         (cat === "all" || m.category === cat) &&
-        (!q || m.title.toLowerCase().includes(q) || m.quotes.some((x) => x.toLowerCase().includes(q))),
+        (!q ||
+          m.title.toLowerCase().includes(q) ||
+          m.quotes.some((x) => x.toLowerCase().includes(q))),
     ),
   );
 }

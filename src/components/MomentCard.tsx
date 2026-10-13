@@ -41,7 +41,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
           onClick={() => setRevealed((v) => !v)}
           className="mt-3 rounded-full border border-primary/40 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-accent"
         >
-          {revealed ? "Tutup jawapan" : "Aku ingat jawapannya"}
+          {revealed ? "Tutup dulu" : "Baca sambungannya"}
         </button>
         <div id={answerId} hidden={!revealed} className="mt-3 animate-rise">
           <Quotes quotes={[answer]} />
