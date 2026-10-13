@@ -196,18 +196,18 @@
 
 /* Mobile-first seaside editorial. */
 :root {
-  --background: #f6f2ea;
-  --foreground: #3c3732;
-  --ink: #302c28;
-  --paper: #fcfaf5;
-  --primary: #443c33;
-  --primary-foreground: #fcfaf5;
+  --background: #fff9f8;
+  --foreground: #543d47;
+  --ink: #48303b;
+  --paper: #fffdfb;
+  --primary: #9b586e;
+  --primary-foreground: #fffdfb;
   --sea: #8ca49d;
-  --tulip: #bd858a;
-  --blush: #e5c9c1;
-  --muted-foreground: #70685f;
-  --border: #ded5c6;
-  --ring: #8b7061;
+  --tulip: #cb8ca8;
+  --blush: #efc4d6;
+  --muted-foreground: #846575;
+  --border: #efdde4;
+  --ring: #a9627b;
 }
 body {
   background-image: none;
@@ -229,7 +229,7 @@ button {
   font-weight: 500;
 }
 .signature {
-  color: #766150;
+  color: #a4657d;
 }
 .hero-note,
 .section-heading > .handwritten,
@@ -245,7 +245,7 @@ button {
 }
 .romantic-hero {
   padding: 24px 24px 34px;
-  background: #f6f2ea;
+  background: #fff9f8;
 }
 .gift-mark {
   display: flex;
@@ -339,10 +339,10 @@ button {
   width: 100%;
   min-height: 54px;
   padding: 15px 22px;
-  background: #443c33;
-  border: 1px solid #443c33;
+  background: #9b586e;
+  border: 1px solid #9b586e;
   border-radius: 3px;
-  color: #fcfaf5;
+  color: #fffdfb;
   font-size: 0.94rem;
   letter-spacing: 0.025em;
   transition:
@@ -413,8 +413,8 @@ button {
   max-width: 700px;
   margin: auto;
   padding: 28px 0 30px;
-  border-top: 1px solid #cabba6;
-  border-bottom: 1px solid #ded5c6;
+  border-top: 1px solid #e5bdce;
+  border-bottom: 1px solid #efdde4;
 }
 .letter-topline {
   display: flex;
@@ -436,7 +436,7 @@ button {
 .letter-copy {
   font-size: 1rem;
   line-height: 1.95;
-  color: #49423b;
+  color: #543d47;
 }
 .letter-copy p + p {
   margin-top: 24px;
@@ -462,12 +462,12 @@ button {
   font-weight: 500;
   letter-spacing: -0.025em;
   margin: 12px 0 16px;
-  color: #3d342b;
+  color: #543744;
 }
 .section-heading > p:last-child:not(.handwritten) {
   max-width: 370px;
   margin: auto;
-  color: #756b5e;
+  color: #846575;
   font-size: 0.9rem;
   line-height: 1.75;
 }
@@ -517,7 +517,7 @@ button {
   color: #776a5a;
 }
 .note-open {
-  background: #fffdf8;
+  background: #fffafd;
   border-color: #bda38a;
 }
 .note-message {
@@ -542,17 +542,17 @@ button {
 .memory-card {
   position: relative;
   padding: 26px 23px 28px;
-  border: 1px solid #e1d8cb;
-  border-radius: 5px;
-  background: #fcfaf5;
-  box-shadow: 0 8px 25px -22px #78624b35;
+  border: 1px solid #efdde4;
+  border-radius: 28px;
+  background: #fffdfb;
+  box-shadow: 0 12px 32px -22px #78624b40;
 }
 .memory-card:first-child {
-  border-color: #cbb59a;
-  background: #fffdf8;
+  border-color: #e5b7ca;
+  background: #fffafd;
 }
 .card-soft-pink {
-  background: #fbf6f0;
+  background: #fff1f4;
 }
 .memory-heading {
   display: flex;
@@ -566,7 +566,7 @@ button {
   font-size: 1.48rem;
   line-height: 1.25;
   font-weight: 500;
-  color: #62503e;
+  color: #704c5d;
 }
 .memory-body {
   margin-top: 24px;
@@ -575,12 +575,10 @@ button {
   margin: 0;
   font-size: 1rem;
   line-height: 1.85;
-  color: #423b33;
+  color: #543d47;
 }
 .memory-quotes p + p {
-  margin-top: 17px;
-  padding-top: 17px;
-  border-top: 1px solid #e5ddcf;
+  margin-top: 12px;
 }
 .poetry-card:not(.long-letter-card) .memory-quotes {
   font-family: var(--font-serif);
@@ -594,9 +592,13 @@ button {
   font-size: 1.15rem;
 }
 .revealed-answer {
-  margin-top: 23px;
-  padding: 18px 0 0 17px;
-  border-left: 1px solid #b6a079;
+  margin-top: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.revealed-answer .memory-quotes {
+  color: #704c5d;
 }
 .romantic-closing {
   position: relative;
@@ -606,7 +608,7 @@ button {
   min-height: 590px;
   display: grid;
   place-items: center;
-  background: #e1d0b7;
+  background: #f1d8e4;
 }
 .closing-scene {
   position: absolute;
@@ -621,15 +623,15 @@ button {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #f6f2ea 0%, #f6f2ea70 28%, #e7d8c955 100%);
+  background: linear-gradient(180deg, #fff9f8 0%, #f6f2ea70 28%, #f1d8e455 100%);
 }
 .closing-letter {
   width: 100%;
   max-width: 560px;
   padding: 30px 25px 26px;
-  border: 1px solid #fff9ed;
+  border: 1px solid #f4d8e4;
   border-radius: 5px;
-  background: #fcfaf3ed;
+  background: #fffafded;
   text-align: center;
   box-shadow: 0 20px 40px -29px #80644540;
 }
@@ -643,7 +645,7 @@ button {
   font-size: 1.65rem;
   line-height: 1.5;
   font-weight: 500;
-  color: #4c3e30;
+  color: #704c5d;
   margin-top: 20px;
 }
 .closing-letter .signature {
@@ -658,7 +660,7 @@ button {
   font-family: var(--font-hand);
   font-size: 1.35rem;
   margin-top: 16px;
-  color: #866350;
+  color: #a4657d;
 }
 .hug-tulips {
   display: flex;
@@ -833,12 +835,12 @@ button {
   justify-content: center;
   padding: max(44px, env(safe-area-inset-top)) 24px max(44px, env(safe-area-inset-bottom));
   text-align: center;
-  background: radial-gradient(ellipse at 50% 55%, #ead9c552, transparent 65%);
+  background: radial-gradient(ellipse at 50% 55%, #f3c5dc52, transparent 65%);
 }
 .envelope-from {
   font-size: 0.72rem;
   letter-spacing: 0.13em;
-  color: #796858;
+  color: #8a6072;
 }
 .envelope-intro h1 {
   margin: 16px 0 76px;
@@ -847,10 +849,10 @@ button {
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.045em;
-  color: #493b30;
+  color: #543744;
 }
 .envelope-intro h1 em {
-  color: #946a5d;
+  color: #ac6683;
 }
 .envelope-button {
   display: flex;
@@ -868,7 +870,7 @@ button {
   width: 100%;
   aspect-ratio: 1.55;
   border-radius: 4px;
-  background: #e0cdb4;
+  background: #e8bfcf;
   box-shadow:
     0 24px 38px -22px #745b4266,
     0 2px 4px #745b4214;
@@ -882,20 +884,20 @@ button {
   inset: 12px 17px 10px;
   z-index: 2;
   padding: 18px 22px;
-  background: #fffdf6;
-  border: 1px solid #e7ddcd;
+  background: #fffdfb;
+  border: 1px solid #efdde4;
   border-radius: 2px;
   box-shadow: 0 1px 8px #745b4214;
   text-align: left;
 }
 .envelope-paper .handwritten {
   font-size: 1.9rem;
-  color: #886553;
+  color: #a4657d;
 }
 .paper-rule {
   display: block;
   height: 1px;
-  background: #ded1bf;
+  background: #e8c9d6;
   margin-top: 15px;
 }
 .short-rule {
@@ -907,7 +909,7 @@ button {
   z-index: 3;
   border-radius: 4px;
   clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
-  background: linear-gradient(32deg, #eadac3 49.8%, #f2e5d1 50%);
+  background: linear-gradient(32deg, #f2d3df 49.8%, #fae4ec 50%);
 }
 .envelope-flap {
   position: absolute;
@@ -916,11 +918,11 @@ button {
   z-index: 4;
   transform-origin: top center;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
-  background: linear-gradient(180deg, #f3e7d5, #e7d3b8);
+  background: linear-gradient(180deg, #f8dce6, #ecc2d1);
 }
 .envelope-whisper {
   margin-top: 27px;
-  color: #796858;
+  color: #8a6072;
   font-family: var(--font-hand);
   font-size: 1.35rem;
 }
@@ -1034,7 +1036,7 @@ button {
   place-items: center;
   transform: rotate(-7deg);
   transform-origin: 10% 50%;
-  background: linear-gradient(100deg, #d4b98cdb, #eedbb9eb 85%, #c4a776db);
+  background: linear-gradient(100deg, #dda3bddb, #f3caddeb 85%, #c98ca8db);
   box-shadow: 0 2px 4px #6b49361a;
   clip-path: polygon(
     1% 0,
@@ -1070,15 +1072,15 @@ button {
   bottom: 0;
   width: 15%;
   transform-origin: left center;
-  background: linear-gradient(90deg, #ebd6b2aa, #f8ebcf);
-  border-left: 1px solid #ad8b5940;
+  background: linear-gradient(90deg, #edbbd1aa, #ffe8f1);
+  border-left: 1px solid #b8739440;
   transition: transform 0.25s ease;
 }
 .tape-label {
   position: relative;
   font-family: var(--font-hand);
   font-size: 1.4rem;
-  color: #604c36;
+  color: #744459;
 }
 .envelope-button:active:not(:disabled) .envelope {
   transform: scale(0.985);
@@ -1124,13 +1126,13 @@ button {
   max-width: 100%;
   min-height: 48px;
   padding: 12px 20px;
-  border: 1px solid #d2bd9e;
+  border: 1px solid #e2b9cb;
   border-radius: 999px;
-  background: #f5ebdc;
+  background: #fce9f0;
   font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.5;
-  color: #5e4935;
+  color: #744459;
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -1141,20 +1143,20 @@ button {
   flex-shrink: 0;
 }
 .note-button[aria-expanded="true"] {
-  background: #eaddc9;
-  border-color: #baa07f;
+  background: #f4d5e3;
+  border-color: #cd8faa;
 }
 .note-button:active {
   transform: scale(0.97);
 }
 .note-button:focus-visible {
-  outline: 2px solid #8b7061;
+  outline: 2px solid #a9627b;
   outline-offset: 4px;
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .note-button:hover {
-    background: #eaddc9;
-    border-color: #baa07f;
+    background: #f4d5e3;
+    border-color: #cd8faa;
     transform: translateY(-2px);
   }
 }
@@ -1180,7 +1182,7 @@ button {
 .illustration-script {
   font-family: var(--font-hand);
   font-size: 25px;
-  fill: #796858;
+  fill: #8a6072;
   stroke: none;
 }
 .illustration-math {
@@ -1193,5 +1195,40 @@ button {
   .note-illustration {
     width: 72px;
     height: 58px;
+  }
+}
+
+.closing-letter {
+  border-radius: 28px;
+}
+
+/* Individual messages, softly held in pink and off-white. */
+.memory-quotes .quote-text {
+  padding: 18px;
+  border: 1px solid #f0dce5;
+  border-radius: 22px 22px 22px 7px;
+  background: #fffafd;
+  overflow-wrap: anywhere;
+}
+.revealed-answer .quote-text {
+  border-color: #edc8d9;
+  border-radius: 22px 22px 7px 22px;
+  background: #f9dfe9;
+}
+.letter-copy p {
+  padding: 20px;
+  border: 1px solid #f0dce5;
+  border-radius: 22px 22px 22px 7px;
+  background: #fff1f5;
+}
+.letter-copy p + p {
+  margin-top: 14px;
+}
+@media (min-width: 640px) {
+  .memory-quotes .quote-text {
+    padding: 22px 24px;
+  }
+  .letter-copy p {
+    padding: 24px 26px;
   }
 }

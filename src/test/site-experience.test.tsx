@@ -45,6 +45,8 @@ describe("personal site experience", () => {
     expect(answer).not.toBeVisible();
     fireEvent.click(first.getByRole("button", { name: "Jawaban kamu yang sweet sekali" }));
     expect(answer).toBeVisible();
+    expect(first.queryByRole("button")).not.toBeInTheDocument();
+    expect(answer.closest(".revealed-answer")).toHaveFocus();
   });
 
   it("starts with a sealed letter and reveals the note after opening", () => {
@@ -100,5 +102,13 @@ describe("personal site experience", () => {
     expect(answer).not.toBeVisible();
     fireEvent.click(card.getByRole("button", { name: "Jawaban kamu yang sweet sekali" }));
     expect(answer).toBeVisible();
+  });
+  it("shows her entire future-husband letter without an expansion button", () => {
+    const gallery = openLetter();
+    const cards = gallery.getAllByRole("article");
+    const letter = within(cards[cards.length - 1]!);
+    expect(letter.getByRole("heading", { name: "Surat untuk calon suami" })).toBeVisible();
+    expect(letter.getByText(/Aamiin ya Rabbal/)).toBeVisible();
+    expect(letter.queryByRole("button")).not.toBeInTheDocument();
   });
 });

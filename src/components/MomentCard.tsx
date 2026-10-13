@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { type Moment } from "@/lib/moments";
 import { NoteIllustration } from "./NoteIllustration";
 
@@ -26,8 +26,11 @@ function Quotes({ quotes }: { quotes: string[] }) {
 
 export function HighlightCard({ m, index }: { m: Moment; index: number }) {
   const [revealed, setRevealed] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const answerId = useId();
+  const answerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (revealed) answerRef.current?.focus({ preventScroll: true });
+  }, [revealed]);
   const isRiddle = RIDDLE_IDS.has(m.id) && m.quotes.length > 1;
   const isLong = m.id === LONG_ID;
   let body;
@@ -39,40 +42,27 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
     body = (
       <>
         <Quotes quotes={question} />
-        <button
-          type="button"
-          aria-expanded={revealed}
-          aria-controls={answerId}
-          onClick={() => setRevealed((v) => !v)}
-          className="memory-action note-button"
+        {!revealed && (
+          <button
+            type="button"
+            aria-expanded={revealed}
+            aria-controls={answerId}
+            onClick={() => setRevealed(true)}
+            className="memory-action note-button"
+          >
+            {label}
+            <span aria-hidden="true">↗</span>
+          </button>
+        )}
+        <div
+          ref={answerRef}
+          tabIndex={-1}
+          id={answerId}
+          hidden={!revealed}
+          className="revealed-answer animate-rise"
         >
-          {revealed ? "Tutup dulu" : label}
-          <span aria-hidden="true">{revealed ? "−" : "↗"}</span>
-        </button>
-        <div id={answerId} hidden={!revealed} className="revealed-answer animate-rise">
           <Quotes quotes={[answer]} />
         </div>
-      </>
-    );
-  } else if (isLong) {
-    const text = m.quotes[0] ?? "";
-    const shown = expanded ? text : text.split("\n\n").slice(0, 3).join("\n\n") + "…";
-    body = (
-      <>
-        <Quotes quotes={[shown]} />
-        <button
-          type="button"
-          aria-expanded={expanded}
-          aria-controls={answerId}
-          onClick={() => setExpanded((v) => !v)}
-          className="memory-action note-button"
-        >
-          {expanded ? "Ringkaskan" : "Baca surat penuh"}
-          <span aria-hidden="true">{expanded ? "−" : "↗"}</span>
-        </button>
-        <span id={answerId} className="sr-only">
-          {expanded ? "Full letter shown" : "Letter preview shown"}
-        </span>
       </>
     );
   } else body = <Quotes quotes={m.quotes} />;
