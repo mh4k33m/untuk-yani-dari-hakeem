@@ -626,27 +626,6 @@ button {
   padding: 18px 0 0 17px;
   border-left: 1px solid #b6a079;
 }
-.read-more-wrap {
-  text-align: center;
-  padding-top: 31px;
-}
-.read-more-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  width: 100%;
-  min-height: 54px;
-  padding: 14px 22px;
-  border: 1px solid #bda78e;
-  border-radius: 3px;
-  color: #68503a;
-  font-size: 0.94rem;
-  transition: background 0.2s;
-}
-.read-more-button:hover {
-  background: #eee6d8;
-}
 .romantic-closing {
   position: relative;
   isolation: isolate;
@@ -844,10 +823,6 @@ button {
   .poetry-card:not(.long-letter-card) .memory-quotes {
     font-size: 1.5rem;
   }
-  .read-more-button {
-    width: auto;
-    min-width: 245px;
-  }
   .closing-letter {
     padding: 43px 45px 36px;
   }
@@ -884,4 +859,244 @@ button {
   .little-note > button {
     min-height: 205px;
   }
+}
+
+/* A letter to open, before anything else. */
+.envelope-intro {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: max(44px, env(safe-area-inset-top)) 24px max(44px, env(safe-area-inset-bottom));
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 55%, #ead9c552, transparent 65%);
+}
+.envelope-from {
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
+  color: #796858;
+}
+.envelope-intro h1 {
+  margin: 16px 0 76px;
+  font-family: var(--font-serif);
+  font-size: clamp(3.8rem, 15vw, 6.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: #493b30;
+}
+.envelope-intro h1 em {
+  color: #946a5d;
+}
+.envelope-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 350px);
+  padding: 8px;
+  border-radius: 8px;
+  -webkit-tap-highlight-color: transparent;
+  perspective: 1100px;
+}
+.envelope {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.55;
+  border-radius: 4px;
+  background: #e0cdb4;
+  box-shadow:
+    0 24px 38px -22px #745b4266,
+    0 2px 4px #745b4214;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+  isolation: isolate;
+}
+.envelope-paper {
+  position: absolute;
+  inset: 12px 17px 10px;
+  z-index: 2;
+  padding: 18px 22px;
+  background: #fffdf6;
+  border: 1px solid #e7ddcd;
+  border-radius: 2px;
+  box-shadow: 0 1px 8px #745b4214;
+  text-align: left;
+}
+.envelope-paper .handwritten {
+  font-size: 1.9rem;
+  color: #886553;
+}
+.paper-rule {
+  display: block;
+  height: 1px;
+  background: #ded1bf;
+  margin-top: 15px;
+}
+.short-rule {
+  width: 65%;
+}
+.envelope-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 4px;
+  clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(32deg, #eadac3 49.8%, #f2e5d1 50%);
+}
+.envelope-flap {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 58%;
+  z-index: 4;
+  transform-origin: top center;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(180deg, #f3e7d5, #e7d3b8);
+}
+.envelope-seal {
+  position: absolute;
+  top: 43%;
+  left: calc(50% - 25px);
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  z-index: 5;
+  border-radius: 50%;
+  background: #a77767;
+  border: 3px double #c99c87;
+  box-shadow:
+    0 3px 7px #6b493640,
+    inset 0 1px 4px #70472a30;
+}
+.seal-flower {
+  width: 18px;
+  height: 30px;
+  filter: sepia(0.3) brightness(1.25);
+}
+.envelope-prompt {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  min-height: 54px;
+  margin-top: 28px;
+  padding: 8px 3px;
+  border-bottom: 1px solid #c2ab92;
+  font-size: 0.95rem;
+  color: #6c5140;
+}
+.envelope-prompt > span {
+  font-size: 1.2rem;
+}
+.envelope-whisper {
+  margin-top: 27px;
+  color: #796858;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+}
+.envelope-opening {
+  pointer-events: none;
+  animation: envelope-depart 1.15s ease both;
+}
+.envelope-opening .envelope-seal {
+  animation: seal-release 0.22s ease both;
+}
+.envelope-opening .envelope-flap {
+  animation: flap-lift 0.55s ease both;
+}
+.envelope-opening .envelope-paper {
+  animation: letter-emerge 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.envelope-opening .envelope-prompt,
+.envelope-opening .envelope-whisper {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.opened-letter {
+  animation: letter-arrive 0.75s ease both;
+}
+.favourites-section {
+  padding-top: 45px;
+}
+@keyframes seal-release {
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+@keyframes flap-lift {
+  0% {
+    transform: rotateX(0);
+    z-index: 4;
+  }
+  49% {
+    z-index: 4;
+  }
+  50%,
+  100% {
+    z-index: 1;
+  }
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+@keyframes letter-emerge {
+  to {
+    transform: translateY(-45%) rotate(-2deg);
+  }
+}
+@keyframes envelope-depart {
+  0%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes letter-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .envelope-button:not(:disabled):hover .envelope {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 42px -22px #745b4266;
+  }
+}
+@media (min-width: 640px) {
+  .envelope-intro h1 {
+    margin-bottom: 95px;
+  }
+  .envelope-button {
+    width: 390px;
+  }
+  .favourites-section {
+    padding-top: 65px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope-intro,
+  .envelope-intro *,
+  .opened-letter {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.envelope {
+  perspective: 900px;
+}
+.envelope-opening h1,
+.envelope-opening .envelope-from {
+  opacity: 0;
+  transition: opacity 0.2s;
 }

@@ -25,14 +25,17 @@ asset uses that path and exists in the deployment folder.
 
 ## Deploy to GitHub Pages
 
-1. Open `docs/pages-workflow.yml` in GitHub and copy its contents. Use **Add file → Create new file** to save them as `.github/workflows/pages.yml` on `main`.
+1. Open `docs/pages-workflow.yml` in GitHub and copy its contents. If `.github/workflows/pages.yml` already exists, edit that file and replace its contents with the template. Otherwise, use **Add file → Create new file** to create it on `main`.
 2. In **Settings → Pages**, choose **GitHub Actions** as the source. Then open **Actions → Deploy to GitHub Pages → Run workflow** and select `main`.
 3. After the workflow completes, the site will be at
    https://mh4k33m.github.io/untuk-yani-dari-hakeem/.
 
+The template uses Node.js 24 compatible Pages actions and pins both jobs to
+Ubuntu 24.04 so runner migrations do not change the build environment.
+
 Deployment is manual; pushing a commit does not publish the site.
 Only `.output/public/` is uploaded. The HTML is prerendered at build time
-and the letter, search, categories, and quote reveals run in the browser.
+and the envelope animation, letter, and quote reveals run in the browser.
 No server, database, or environment secrets are needed for the published site.
 
 The app uses React, TanStack Start, Vite, Tailwind CSS, and Nitro.

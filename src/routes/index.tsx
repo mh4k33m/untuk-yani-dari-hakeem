@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { Tulip } from "@/components/Decor";
 import { HighlightCard } from "@/components/MomentCard";
 import { SeasideScene } from "@/components/Seaside";
-import { LittleThings } from "@/components/LittleThings";
 import { moments } from "@/lib/moments";
 
 export const Route = createFileRoute("/")({
@@ -27,17 +26,24 @@ const APOLOGY = [
 ];
 
 function Index() {
-  const [open, setOpen] = useState(false);
+  const [phase, setPhase] = useState<"sealed" | "opening" | "open">("sealed");
+  const open = phase === "open";
+  useEffect(() => {
+    if (phase !== "opening") return;
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const timer = window.setTimeout(() => setPhase("open"), reduced ? 0 : 1150);
+    return () => window.clearTimeout(timer);
+  }, [phase]);
   const letterRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     if (open) {
       letterRef.current?.focus({ preventScroll: true });
-      letterRef.current?.scrollIntoView({ block: "start" });
+      letterRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
     }
   }, [open]);
   return (
     <main className="romantic-site">
-      <Hero open={open} onOpen={() => setOpen(true)} />
+      {!open && <Envelope opening={phase === "opening"} onOpen={() => setPhase("opening")} />}
       {open && (
         <div className="opened-letter">
           <section aria-labelledby="letter" className="letter-section">
@@ -57,7 +63,6 @@ function Index() {
               <p className="signature">dari aku, Hakeem</p>
             </div>
           </section>
-          <LittleThings />
           <Favourites />
           <Closing />
         </div>
@@ -66,53 +71,46 @@ function Index() {
   );
 }
 
-function Hero({ open, onOpen }: { open: boolean; onOpen: () => void }) {
+function Envelope({ opening, onOpen }: { opening: boolean; onOpen: () => void }) {
   return (
-    <header className={`romantic-hero ${open ? "hero-open" : ""}`}>
-      <div className="gift-mark">
-        <Tulip className="gift-flower" />
-        <span>
-          Hakeem <span aria-hidden="true">→</span> Yani
+    <header className={`envelope-intro ${opening ? "envelope-opening" : ""}`}>
+      <p className="envelope-from">dari Hakeem, untuk kamu</p>
+      <h1>
+        Untuk <em>Yani.</em>
+      </h1>
+      <button
+        className="envelope-button"
+        onClick={onOpen}
+        disabled={opening}
+        aria-label="Buka surat aku"
+        aria-busy={opening}
+      >
+        <span className="envelope" aria-hidden="true">
+          <span className="envelope-paper">
+            <span className="handwritten">Yaniii,</span>
+            <span className="paper-rule" />
+            <span className="paper-rule" />
+            <span className="paper-rule short-rule" />
+          </span>
+          <span className="envelope-pocket" />
+          <span className="envelope-flap" />
+          <span className="envelope-seal">
+            <Tulip className="seal-flower" />
+          </span>
         </span>
-      </div>
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <p className="handwritten hero-note">a little something, just for you</p>
-          <h1>
-            Untuk <em>Yani.</em>
-          </h1>
-          <p className="hero-description">
-            A little sunset, a few tulips,
-            <br />
-            and something I want to say.
-          </p>
-          {!open ? (
-            <div className="hero-actions">
-              <button className="gift-button" onClick={onOpen}>
-                Buka surat aku <span aria-hidden="true">↗</span>
-              </button>
-            </div>
-          ) : (
-            <a className="text-button hero-return" href="#letter">
-              Surat untuk kamu <span aria-hidden="true">↓</span>
-            </a>
-          )}
-        </div>
-        <div className="scene-postcard">
-          <SeasideScene className="hero-scene" />
-          <div className="postcard-caption">
-            <span>langit, laut & senja</span>
-            <span aria-hidden="true">♡</span>
-          </div>
-        </div>
-      </div>
-      <p className="hero-bottom-note">the things you like, in a little place of your own</p>
+        <span className="envelope-prompt" aria-hidden="true">
+          Buka surat aku <span>↗</span>
+        </span>
+      </button>
+      <p className="envelope-whisper">something I wanted you to know.</p>
+      <p className="sr-only" role="status">
+        {opening ? "Opening your letter…" : ""}
+      </p>
     </header>
   );
 }
 
 function Favourites() {
-  const [limit, setLimit] = useState(5);
   return (
     <section aria-labelledby="simpan" className="favourites-section">
       <div className="section-heading">
@@ -121,23 +119,10 @@ function Favourites() {
         <p>Antara favourites aku. Starting with Jarjit, of course 🤏🏻</p>
       </div>
       <div className="favourites-list">
-        {moments.slice(0, limit).map((m, i) => (
+        {moments.map((m, i) => (
           <HighlightCard key={m.id} m={m} index={i} />
         ))}
       </div>
-      <p className="sr-only" aria-live="polite">
-        {limit} of {moments.length} favourites shown.
-      </p>
-      {limit < moments.length && (
-        <div className="read-more-wrap">
-          <button
-            className="read-more-button"
-            onClick={() => setLimit((l) => Math.min(l + 5, moments.length))}
-          >
-            Read {moments.length - limit} more <span aria-hidden="true">↓</span>
-          </button>
-        </div>
-      )}
     </section>
   );
 }
