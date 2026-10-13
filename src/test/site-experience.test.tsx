@@ -43,7 +43,7 @@ describe("personal site experience", () => {
     expect(first.getByRole("heading", { level: 3 })).toHaveTextContent("Jarjit");
     const answer = first.getByText(/Yaaa karna kalo satu satu nya itu kan kamuuuuu/);
     expect(answer).not.toBeVisible();
-    fireEvent.click(first.getByRole("button", { name: "Baca sambungannya" }));
+    fireEvent.click(first.getByRole("button", { name: "Jawaban kamu yang sweet sekali" }));
     expect(answer).toBeVisible();
   });
 
@@ -98,7 +98,7 @@ describe("personal site experience", () => {
     expect(gallery.queryByText("Nabila dan Abi")).not.toBeInTheDocument();
     const answer = card.getByText(/Semenjakkk kenal kamuuuu/);
     expect(answer).not.toBeVisible();
-    fireEvent.click(card.getByRole("button", { name: "Baca sambungannya" }));
+    fireEvent.click(card.getByRole("button", { name: "Jawaban kamu yang sweet sekali" }));
     expect(answer).toBeVisible();
   });
 });

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Tulip } from "@/components/Decor";
 import { HighlightCard } from "@/components/MomentCard";
+import { NoteIllustration } from "@/components/NoteIllustration";
 import { SeasideScene } from "@/components/Seaside";
 import { moments } from "@/lib/moments";
 
@@ -49,7 +50,7 @@ function Index() {
           <section aria-labelledby="letter" className="letter-section">
             <div className="letter-sheet animate-rise">
               <div className="letter-topline">
-                <Tulip className="letter-flower" />
+                <NoteIllustration motif="letter" />
               </div>
               <h2 id="letter" ref={letterRef} tabIndex={-1}>
                 Yaniii,
@@ -148,14 +149,14 @@ function Closing() {
     <footer className="romantic-closing">
       <SeasideScene className="closing-scene" />
       <div className="closing-letter">
-        <Tulip className="closing-flower" />
+        <NoteIllustration motif="tulips" className="closing-illustration" />
         <p className="handwritten">under the same sky</p>
         <p className="closing-copy">
           Thank you for making me smile, Yani. Aku suka kamu seadanya. Semoga Allah mudahkan yang
           baik untuk kita 🤍
         </p>
         <p className="signature">— Hakeem</p>
-        <button className="hug-button paper-button" onClick={() => setHug(true)}>
+        <button className="hug-button note-button" onClick={() => setHug(true)}>
           Peluk kecil untuk kamu <span aria-hidden="true">♡</span>
         </button>
         <p aria-live="polite" className="hug-message">

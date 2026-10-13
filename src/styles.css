@@ -587,25 +587,6 @@ button {
   font-size: 1.32rem;
   line-height: 1.65;
 }
-.memory-flower {
-  width: 20px;
-  height: 33px;
-  flex-shrink: 0;
-  opacity: 0.8;
-}
-.memory-doodle {
-  width: 48px;
-  height: 39px;
-  flex-shrink: 0;
-}
-.jarjit-sticker {
-  font-family: var(--font-hand);
-  color: #997e5d;
-  font-size: 1.15rem;
-  line-height: 1;
-  text-align: right;
-  flex-shrink: 0;
-}
 .memory-action {
   margin-top: 22px;
 }
@@ -1134,80 +1115,83 @@ button {
   }
 }
 
-/* The same paper-and-tape treatment for every letter action. */
-.paper-button {
-  position: relative;
-  isolation: isolate;
+/* Rounded, comfortable actions throughout the letter. */
+.note-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   max-width: 100%;
   min-height: 48px;
   padding: 12px 20px;
-  border: 0;
-  border-radius: 2px;
-  background: transparent;
+  border: 1px solid #d2bd9e;
+  border-radius: 999px;
+  background: #f5ebdc;
   font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.5;
   color: #5e4935;
   cursor: pointer;
-  transition: transform 0.2s ease;
-}
-.paper-button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(105deg, #e7d4b4e8, #f0e2cbed);
-  clip-path: polygon(
-    1% 0,
-    99% 1%,
-    98% 16%,
-    100% 32%,
-    98% 48%,
-    100% 64%,
-    98% 82%,
-    99% 100%,
-    1% 99%,
-    2% 82%,
-    0 64%,
-    2% 47%,
-    0 30%,
-    2% 15%
-  );
-  transform: rotate(-1deg);
-  box-shadow: inset 0 1px 0 #fff8e7;
   transition:
     background 0.2s ease,
+    border-color 0.2s ease,
     transform 0.2s ease;
 }
-.paper-button[aria-expanded="true"]::before {
-  background: #dfc7a1;
+.note-button > span {
+  flex-shrink: 0;
 }
-.paper-button:active {
-  transform: translateY(1px) scale(0.98);
+.note-button[aria-expanded="true"] {
+  background: #eaddc9;
+  border-color: #baa07f;
 }
-.paper-button:focus-visible {
+.note-button:active {
+  transform: scale(0.97);
+}
+.note-button:focus-visible {
   outline: 2px solid #8b7061;
-  outline-offset: 5px;
+  outline-offset: 4px;
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .paper-button:hover {
+  .note-button:hover {
+    background: #eaddc9;
+    border-color: #baa07f;
     transform: translateY(-2px);
-  }
-  .paper-button:hover::before {
-    background: #e4cdab;
-    transform: rotate(0deg);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .paper-button,
-  .paper-button::before {
+  .note-button {
     transition: none;
   }
-  .paper-button:active {
+  .note-button:active {
     transform: none;
+  }
+}
+
+/* Every note uses the same illustration scale and palette. */
+.note-illustration {
+  display: block;
+  width: 62px;
+  height: 50px;
+  flex-shrink: 0;
+}
+.memory-heading {
+  align-items: center;
+}
+.illustration-script {
+  font-family: var(--font-hand);
+  font-size: 25px;
+  fill: #796858;
+  stroke: none;
+}
+.illustration-math {
+  font-size: 18px;
+}
+.closing-illustration {
+  margin: 0 auto 20px;
+}
+@media (min-width: 640px) {
+  .note-illustration {
+    width: 72px;
+    height: 58px;
   }
 }

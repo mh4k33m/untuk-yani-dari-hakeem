@@ -1,7 +1,6 @@
 import { useId, useState } from "react";
 import { type Moment } from "@/lib/moments";
-import { Tulip } from "./Decor";
-import { LittleAnt, LittleBee } from "./Seaside";
+import { NoteIllustration } from "./NoteIllustration";
 
 const RIDDLE_IDS = new Set([
   "yani-125255",
@@ -25,22 +24,6 @@ function Quotes({ quotes }: { quotes: string[] }) {
   );
 }
 
-function CardDecoration({ id }: { id: string }) {
-  if (id === "yani-125255")
-    return (
-      <span className="jarjit-sticker" aria-hidden="true">
-        dua
-        <br />
-        tiga...
-      </span>
-    );
-  if (id === "yani-125106") return <LittleBee className="memory-doodle" />;
-  if (id === "yani-123249") return <LittleAnt className="memory-doodle" />;
-  if (["yani-124804", "yani-122652", "yani-125022"].includes(id))
-    return <Tulip className="memory-flower" />;
-  return null;
-}
-
 export function HighlightCard({ m, index }: { m: Moment; index: number }) {
   const [revealed, setRevealed] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -51,6 +34,8 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
   if (isRiddle) {
     const question = m.quotes.slice(0, -1);
     const answer = m.quotes.at(-1)!;
+    const label =
+      m.id === "yani-123795" ? "Yang buat aku senyum" : "Jawaban kamu yang sweet sekali";
     body = (
       <>
         <Quotes quotes={question} />
@@ -59,9 +44,9 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
           aria-expanded={revealed}
           aria-controls={answerId}
           onClick={() => setRevealed((v) => !v)}
-          className="memory-action paper-button"
+          className="memory-action note-button"
         >
-          {revealed ? "Tutup dulu" : "Baca sambungannya"}
+          {revealed ? "Tutup dulu" : label}
           <span aria-hidden="true">{revealed ? "−" : "↗"}</span>
         </button>
         <div id={answerId} hidden={!revealed} className="revealed-answer animate-rise">
@@ -80,7 +65,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
           aria-expanded={expanded}
           aria-controls={answerId}
           onClick={() => setExpanded((v) => !v)}
-          className="memory-action paper-button"
+          className="memory-action note-button"
         >
           {expanded ? "Ringkaskan" : "Baca surat penuh"}
           <span aria-hidden="true">{expanded ? "−" : "↗"}</span>
@@ -97,7 +82,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
     >
       <div className="memory-heading">
         <h3>{m.title}</h3>
-        <CardDecoration id={m.id} />
+        <NoteIllustration momentId={m.id} />
       </div>
       <div className="memory-body">{body}</div>
     </article>
