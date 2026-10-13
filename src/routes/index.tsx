@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 });
 
 const APOLOGY = [
-  "Yaniii, I'm sorry for what I said tadi. Bila aku cakap kamu macam udah biasa bagi ayat-ayat tu, aku buat kamu rasa macam aku meragui kamu. I shouldn't have said it that way.",
+  "I'm sorry for what I said tadi. Bila aku cakap kamu macam udah biasa bagi ayat-ayat tu, aku buat kamu rasa macam aku meragui kamu. I shouldn't have said it that way.",
   "I like your pantun, your random questions, and the way you make me smile. Kadang aku malu sampai tak tahu nak balas apa 🫠 But I don't want my awkward replies to make you feel like I don't appreciate you.",
   "Thank you for being yourself with me. Aku suka kamu seadanya, termasuk yang suka bergurau dan bagi ayat manis tu. I kept a few of my favourites here. Just wanted you to know they mean something to me 🤍",
 ];
@@ -31,7 +31,7 @@ function Index() {
   useEffect(() => {
     if (phase !== "opening") return;
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    const timer = window.setTimeout(() => setPhase("open"), reduced ? 0 : 1150);
+    const timer = window.setTimeout(() => setPhase("open"), reduced ? 0 : 1550);
     return () => window.clearTimeout(timer);
   }, [phase]);
   const letterRef = useRef<HTMLHeadingElement>(null);
@@ -49,7 +49,6 @@ function Index() {
           <section aria-labelledby="letter" className="letter-section">
             <div className="letter-sheet animate-rise">
               <div className="letter-topline">
-                <span>untuk kamu</span>
                 <Tulip className="letter-flower" />
               </div>
               <h2 id="letter" ref={letterRef} tabIndex={-1}>
@@ -72,30 +71,49 @@ function Index() {
 }
 
 function Envelope({ opening, onOpen }: { opening: boolean; onOpen: () => void }) {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const resetTilt = () => {
+    buttonRef.current?.style.setProperty("--tilt-x", "0deg");
+    buttonRef.current?.style.setProperty("--tilt-y", "0deg");
+  };
   return (
     <header className={`envelope-intro ${opening ? "envelope-opening" : ""}`}>
-      <p className="envelope-from">dari Hakeem, untuk kamu</p>
+      <p className="envelope-from">dari Hakeem</p>
       <h1>
         Untuk <em>Yani.</em>
       </h1>
       <button
+        ref={buttonRef}
         className="envelope-button"
-        onClick={onOpen}
+        onPointerMove={(event) => {
+          if (opening || event.pointerType !== "mouse") return;
+          const bounds = event.currentTarget.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+          event.currentTarget.style.setProperty("--tilt-x", `${-y * 6}deg`);
+          event.currentTarget.style.setProperty("--tilt-y", `${x * 8}deg`);
+        }}
+        onPointerLeave={resetTilt}
+        onBlur={resetTilt}
+        onClick={() => {
+          resetTilt();
+          onOpen();
+        }}
         disabled={opening}
         aria-label="Buka surat aku"
         aria-busy={opening}
       >
         <span className="envelope" aria-hidden="true">
           <span className="envelope-paper">
-            <span className="handwritten">Yaniii,</span>
+            <span className="handwritten">a note for you</span>
             <span className="paper-rule" />
             <span className="paper-rule" />
             <span className="paper-rule short-rule" />
           </span>
           <span className="envelope-pocket" />
           <span className="envelope-flap" />
-          <span className="envelope-seal">
-            <Tulip className="seal-flower" />
+          <span className="envelope-tape">
+            <span className="tape-label">open me ♡</span>
           </span>
         </span>
         <span className="envelope-prompt" aria-hidden="true">
@@ -144,7 +162,7 @@ function Closing() {
           Peluk kecil untuk kamu <span aria-hidden="true">♡</span>
         </button>
         <p aria-live="polite" className="hug-message">
-          {hug ? "Maaf ya, Yaniii 🤍" : ""}
+          {hug ? "Sending you a little hug 🤍" : ""}
         </p>
         {hug && (
           <div className="hug-tulips" aria-hidden="true">

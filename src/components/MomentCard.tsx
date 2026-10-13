@@ -5,6 +5,8 @@ import { LittleAnt, LittleBee } from "./Seaside";
 
 const RIDDLE_IDS = new Set([
   "yani-125255",
+  "yani-124941",
+  "yani-123795",
   "yani-124513",
   "yani-124679",
   "yani-124993",

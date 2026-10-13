@@ -73,4 +73,29 @@ describe("personal site experience", () => {
     expect(screen.getByRole("heading", { name: "Yaniii," })).toHaveFocus();
     expect(screen.getAllByRole("article")).toHaveLength(10);
   });
+  it("keeps the opening and letter copy free of repeated greetings", () => {
+    vi.useFakeTimers();
+    render(<Page />);
+    expect(screen.queryByText(/dari Hakeem, untuk kamu/)).not.toBeInTheDocument();
+    expect(screen.getByText("dari Hakeem")).toBeVisible();
+    const opener = screen.getByRole("button", { name: "Buka surat aku" });
+    expect(opener.querySelector(".envelope-tape")).not.toBeNull();
+    fireEvent.click(opener);
+    act(() => vi.runAllTimers());
+    const letter = within(screen.getByRole("region", { name: "Yaniii," }));
+    expect(letter.getAllByText(/Yaniii/)).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: "Peluk kecil untuk kamu" }));
+    expect(screen.queryByText("Maaf ya, Yaniii 🤍")).not.toBeInTheDocument();
+  });
+
+  it("reveals her direct question in the apple joke", () => {
+    const gallery = openLetter();
+    const card = within(
+      gallery.getAllByRole("article").find((a) => a.textContent?.includes("Nabila dan Abi"))!,
+    );
+    const answer = card.getByText("Kamu suka aku gak?????");
+    expect(answer).not.toBeVisible();
+    fireEvent.click(card.getByRole("button", { name: "Baca sambungannya" }));
+    expect(answer).toBeVisible();
+  });
 });

@@ -955,27 +955,6 @@ button {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   background: linear-gradient(180deg, #f3e7d5, #e7d3b8);
 }
-.envelope-seal {
-  position: absolute;
-  top: 43%;
-  left: calc(50% - 25px);
-  display: grid;
-  place-items: center;
-  width: 50px;
-  height: 50px;
-  z-index: 5;
-  border-radius: 50%;
-  background: #a77767;
-  border: 3px double #c99c87;
-  box-shadow:
-    0 3px 7px #6b493640,
-    inset 0 1px 4px #70472a30;
-}
-.seal-flower {
-  width: 18px;
-  height: 30px;
-  filter: sepia(0.3) brightness(1.25);
-}
 .envelope-prompt {
   display: flex;
   align-items: center;
@@ -998,16 +977,16 @@ button {
 }
 .envelope-opening {
   pointer-events: none;
-  animation: envelope-depart 1.15s ease both;
+  animation: envelope-depart 1.55s ease both;
 }
-.envelope-opening .envelope-seal {
-  animation: seal-release 0.22s ease both;
+.envelope-opening .envelope-tape {
+  animation: tape-peel 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 .envelope-opening .envelope-flap {
-  animation: flap-lift 0.55s ease both;
+  animation: flap-lift 0.55s 0.35s ease both;
 }
 .envelope-opening .envelope-paper {
-  animation: letter-emerge 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: letter-emerge 0.7s 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .envelope-opening .envelope-prompt,
 .envelope-opening .envelope-whisper {
@@ -1019,12 +998,6 @@ button {
 }
 .favourites-section {
   padding-top: 45px;
-}
-@keyframes seal-release {
-  to {
-    opacity: 0;
-    transform: scale(0.8);
-  }
 }
 @keyframes flap-lift {
   0% {
@@ -1068,7 +1041,7 @@ button {
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .envelope-button:not(:disabled):hover .envelope {
-    transform: translateY(-5px);
+    transform: translateY(-5px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
     box-shadow: 0 30px 42px -22px #745b4266;
   }
 }
@@ -1099,4 +1072,97 @@ button {
 .envelope-opening .envelope-from {
   opacity: 0;
   transition: opacity 0.2s;
+}
+
+/* A torn strip of tape across the flap. */
+.envelope-tape {
+  position: absolute;
+  top: 43%;
+  left: 27%;
+  width: 46%;
+  height: 55px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  transform: rotate(-7deg);
+  transform-origin: 10% 50%;
+  background: linear-gradient(100deg, #d4b98cdb, #eedbb9eb 85%, #c4a776db);
+  box-shadow: 0 2px 4px #6b49361a;
+  clip-path: polygon(
+    1% 0,
+    99% 2%,
+    97% 12%,
+    100% 24%,
+    97% 37%,
+    100% 51%,
+    97% 65%,
+    99% 80%,
+    97% 100%,
+    1% 98%,
+    3% 84%,
+    0 70%,
+    3% 55%,
+    0 40%,
+    3% 25%,
+    0 12%
+  );
+}
+.envelope-tape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, #fff8de22 3px 4px);
+  pointer-events: none;
+}
+.envelope-tape::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #ebd6b2aa, #f8ebcf);
+  border-left: 1px solid #ad8b5940;
+  transition: transform 0.25s ease;
+}
+.tape-label {
+  position: relative;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: #604c36;
+}
+.envelope-button:active:not(:disabled) .envelope {
+  transform: scale(0.985);
+}
+.envelope-button:focus-visible .envelope-tape::after {
+  transform: rotateY(-38deg);
+}
+.letter-topline {
+  justify-content: flex-end;
+}
+@keyframes tape-peel {
+  0% {
+    transform: rotate(-7deg);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(8px, -12px) rotate(-15deg) rotateY(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(25px, -65px) rotate(-25deg) rotateY(-75deg);
+    opacity: 0;
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .envelope-button:not(:disabled):hover .envelope-tape::after {
+    transform: rotateY(-38deg) translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope-button .envelope,
+  .envelope-button .envelope-tape::after {
+    transform: none !important;
+  }
 }
