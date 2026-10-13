@@ -21,7 +21,7 @@ function openLetter() {
   render(<Page />);
   fireEvent.click(screen.getByRole("button", { name: "Buka surat aku" }));
   act(() => vi.runAllTimers());
-  return within(screen.getByRole("region", { name: "Ayat kamu yang aku simpan" }));
+  return within(screen.getByRole("region", { name: "Yang buat aku senyum" }));
 }
 
 describe("personal site experience", () => {
@@ -59,9 +59,7 @@ describe("personal site experience", () => {
     const button = screen.getByRole("button", { name: "Buka surat aku" });
     fireEvent.click(button);
     expect(button).toBeDisabled();
-    expect(
-      screen.queryByRole("region", { name: "Ayat kamu yang aku simpan" }),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Yang buat aku senyum" })).not.toBeInTheDocument();
     act(() => vi.runAllTimers());
     expect(screen.queryByRole("button", { name: "Buka surat aku" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Yaniii," })).toHaveFocus();

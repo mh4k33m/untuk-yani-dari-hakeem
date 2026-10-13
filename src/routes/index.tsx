@@ -133,8 +133,10 @@ function Favourites() {
     <section aria-labelledby="simpan" className="favourites-section">
       <div className="section-heading">
         <p className="handwritten">your questions, your sweet answers</p>
-        <h2 id="simpan">Ayat kamu yang aku simpan</h2>
-        <p>Antara favourites aku. Starting with Jarjit, of course 🤏🏻</p>
+        <h2 id="simpan">Yang buat aku senyum</h2>
+        <p>
+          Aku suka semua ayat kamu. These are just a few of my favourites, starting with Jarjit 🤏🏻
+        </p>
       </div>
       <div className="favourites-list">
         {moments.map((m, i) => (
