@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { ButterflyNote } from "@/components/ButterflyNote";
 import { HighlightCard } from "@/components/MomentCard";
 import { NoteIllustration } from "@/components/NoteIllustration";
 import { SeasideScene } from "@/components/Seaside";
@@ -64,6 +65,7 @@ function Index() {
             </div>
           </section>
           <Favourites />
+          <ButterflyNote />
           <Closing />
         </div>
       )}

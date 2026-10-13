@@ -1237,3 +1237,224 @@ button {
     padding: 40px 46px;
   }
 }
+
+/* A small tap-to-reveal surprise. */
+.butterfly-note {
+  position: relative;
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 20px 24px 55px;
+  text-align: center;
+}
+.butterfly-note .section-heading {
+  margin-bottom: 0;
+}
+.butterfly-note .section-heading h2 {
+  font-size: clamp(2.4rem, 9vw, 3.4rem);
+}
+.tap-words {
+  min-height: 150px;
+  display: block;
+  align-content: center;
+  padding: 18px 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 12vw, 4.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: #704c5d;
+}
+.tap-word {
+  display: inline;
+  animation: word-bloom 0.5s ease both;
+}
+.smile-word {
+  color: #ba6c91;
+  font-style: italic;
+}
+.butterfly-button {
+  min-width: 160px;
+  min-height: 52px;
+}
+.butterfly-hint {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: #846575;
+}
+.resting-butterflies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  min-height: 82px;
+  margin-top: 18px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.butterflies-awake {
+  opacity: 1;
+}
+.resting-butterflies .resting-butterfly {
+  width: 45px;
+  height: 40px;
+  transform: rotate(-14deg);
+}
+.resting-butterflies .resting-butterfly:nth-child(2) {
+  width: 62px;
+  height: 50px;
+  transform: translateY(-6px) rotate(8deg);
+}
+.resting-butterfly:nth-child(3) {
+  transform: rotate(18deg);
+}
+.butterfly-drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.butterfly-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+.butterfly-flight {
+  position: absolute;
+  display: block;
+  opacity: 0;
+  filter: drop-shadow(0 4px 4px #b7769420);
+  animation: butterfly-flight var(--flight-time) var(--flight-delay) linear both;
+  will-change: transform, opacity;
+}
+.butterfly-drift {
+  display: block;
+  animation: butterfly-drift 1.25s ease-in-out infinite alternate;
+}
+.butterfly-wing {
+  transform-box: view-box;
+  transform-origin: 40px 34px;
+}
+.butterfly-flight .butterfly-wing {
+  animation: wingbeat var(--wing-time) ease-in-out infinite alternate;
+}
+.butterfly-flight .butterfly-wing-right {
+  animation-delay: -90ms;
+}
+@keyframes word-bloom {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+@keyframes butterfly-flight {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5) rotate(-8deg);
+  }
+  8% {
+    opacity: 1;
+  }
+  25% {
+    transform: translate3d(calc(var(--flight-x) * 0.18), calc(var(--flight-y) * 0.25), 0) scale(1)
+      rotate(-16deg);
+  }
+  50% {
+    transform: translate3d(calc(var(--flight-x) * 0.65), calc(var(--flight-y) * 0.48), 0)
+      scale(0.95) rotate(12deg);
+  }
+  78% {
+    opacity: 1;
+    transform: translate3d(calc(var(--flight-x) * 0.8), calc(var(--flight-y) * 0.8), 0) scale(0.85)
+      rotate(-9deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--flight-x), var(--flight-y), 0) scale(0.7) rotate(8deg);
+  }
+}
+@keyframes butterfly-drift {
+  from {
+    transform: translateX(-9px) rotate(-5deg);
+  }
+  to {
+    transform: translateX(9px) rotate(5deg);
+  }
+}
+@keyframes wingbeat {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0.28);
+  }
+}
+@media (min-width: 640px) {
+  .butterfly-note {
+    padding: 20px 40px 65px;
+  }
+  .tap-words {
+    min-height: 180px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tap-word,
+  .butterfly-drift,
+  .butterfly-wing {
+    animation: none !important;
+  }
+  .resting-butterflies {
+    transition: none;
+  }
+  .butterfly-sky {
+    display: none;
+  }
+}
+
+.tap-words:empty::before {
+  content: "♡";
+  font-family: var(--font-hand);
+  color: #d6a2bb;
+  font-size: 2.6rem;
+}
+
+/* A gentle invitation to reveal each sweet answer. */
+.memory-action.note-button {
+  animation: answer-invitation 4.8s ease-in-out infinite;
+}
+.memory-card:nth-child(3n + 2) .memory-action.note-button {
+  animation-delay: 0.8s;
+}
+.memory-card:nth-child(3n) .memory-action.note-button {
+  animation-delay: 1.6s;
+}
+.memory-action.note-button:hover,
+.memory-action.note-button:focus-visible,
+.memory-action.note-button:active {
+  animation: none;
+}
+@keyframes answer-invitation {
+  0%,
+  70%,
+  86%,
+  100% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-4px);
+  }
+  79% {
+    transform: translateY(0);
+  }
+  82% {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .memory-action.note-button {
+    animation: none !important;
+  }
+}
