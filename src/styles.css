@@ -1568,3 +1568,8 @@ button {
     background: #fce7f0;
   }
 }
+
+/* The letter greeting receives reading focus without a control outline. */
+#letter:focus {
+  outline: none;
+}
