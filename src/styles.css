@@ -1421,40 +1421,42 @@ button {
   font-size: 2.6rem;
 }
 
-/* A gentle invitation to reveal each sweet answer. */
+/* Answer pills float just over the edge of their own card. */
+.memory-card.answer-pending {
+  padding-bottom: 64px;
+  margin-bottom: 24px;
+}
 .memory-action.note-button {
-  animation: answer-invitation 4.8s ease-in-out infinite;
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 1;
+  width: max-content;
+  max-width: calc(100% - 40px);
+  min-height: 48px;
+  margin: 0;
+  background: #fff4f8;
+  border-color: #dda8bf;
+  box-shadow:
+    0 8px 20px #a9618026,
+    0 2px 5px #a9618014;
 }
-.memory-card:nth-child(3n + 2) .memory-action.note-button {
-  animation-delay: 0.8s;
-}
-.memory-card:nth-child(3n) .memory-action.note-button {
-  animation-delay: 1.6s;
-}
-.memory-action.note-button:hover,
-.memory-action.note-button:focus-visible,
 .memory-action.note-button:active {
-  animation: none;
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 3px 9px #a9618020;
 }
-@keyframes answer-invitation {
-  0%,
-  70%,
-  86%,
-  100% {
-    transform: translateY(0);
-  }
-  75% {
-    transform: translateY(-4px);
-  }
-  79% {
-    transform: translateY(0);
-  }
-  82% {
-    transform: translateY(-2px);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .memory-action.note-button:hover {
+    transform: translateY(-3px);
+    background: #fce7f0;
+    box-shadow:
+      0 12px 24px #a9618030,
+      0 3px 7px #a9618018;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .memory-action.note-button {
-    animation: none !important;
+  .memory-action.note-button:active {
+    transform: none;
   }
 }

@@ -68,7 +68,7 @@ export function HighlightCard({ m, index }: { m: Moment; index: number }) {
   } else body = <Quotes quotes={m.quotes} />;
   return (
     <article
-      className={`memory-card ${m.category === "poetry" ? "poetry-card" : ""} ${index % 2 ? "card-soft-pink" : "card-soft-cream"}`}
+      className={`memory-card ${reveal && !revealed ? "answer-pending" : ""} ${m.category === "poetry" ? "poetry-card" : ""} ${index % 2 ? "card-soft-pink" : "card-soft-cream"}`}
     >
       <div className="memory-heading">
         <h3>{m.title}</h3>

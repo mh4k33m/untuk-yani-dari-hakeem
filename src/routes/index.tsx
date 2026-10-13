@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
 
 const APOLOGY = [
   "I'm sorry for what I said tadi. Bila aku cakap kamu macam udah biasa bagi ayat-ayat tu, aku buat kamu rasa macam aku meragui kamu. I shouldn't have said it that way.",
-  "I like your pantun, your random questions, and the way you make me smile. Kadang aku malu sampai tak tahu nak balas apa 🫠 But I don't want my awkward replies to make you feel like I don't appreciate you.",
+  "I like your pantun, your random questions, and how easy it feels to talk to you. Kadang aku malu sampai tak tahu nak balas apa 🫠 But I don't want my awkward replies to make you feel like I don't appreciate you.",
   "Thank you for being yourself with me. Aku suka kamu seadanya, termasuk yang suka bergurau dan bagi ayat manis tu. I kept a few of my favourites here. Just wanted you to know they mean something to me 🤍",
 ];
 
@@ -133,7 +133,7 @@ function Favourites() {
     <section aria-labelledby="simpan" className="favourites-section">
       <div className="section-heading">
         <p className="handwritten">your questions, your sweet answers</p>
-        <h2 id="simpan">Yang buat aku senyum</h2>
+        <h2 id="simpan">Ayat kamu yang aku simpan</h2>
         <p>Antara favourites aku. Starting with Jarjit, of course 🤏🏻</p>
       </div>
       <div className="favourites-list">
@@ -158,8 +158,8 @@ function Closing() {
         <NoteIllustration motif="tulips" className="closing-illustration" />
         <p className="handwritten">under the same sky</p>
         <p className="closing-copy">
-          Thank you for making me smile, Yani. Aku suka kamu seadanya. Semoga Allah mudahkan yang
-          baik untuk kita 🤍
+          Thank you for letting me get to know this side of you. Aku suka kamu seadanya. Semoga
+          Allah mudahkan yang baik untuk kita 🤍
         </p>
         <p className="signature">— Hakeem</p>
         {!lastNote && (
