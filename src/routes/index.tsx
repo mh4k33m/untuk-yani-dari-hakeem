@@ -48,7 +48,7 @@ function Index() {
         <>
           <section aria-labelledby="letter" className="mx-auto max-w-2xl px-5 py-14">
             <div className="paper animate-rise rounded-2xl px-6 py-9 sm:px-10">
-              <h1 id="letter" ref={letterRef} tabIndex={-1} className="text-4xl font-semibold leading-tight text-ink sm:text-5xl">
+              <h1 id="letter" ref={letterRef} tabIndex={-1} className="scroll-mt-8 text-4xl font-semibold leading-tight text-ink sm:text-5xl">
                 Yani, aku simpan kata-kata kamu.
               </h1>
               <div className="mt-6 space-y-5 text-[1.08rem] leading-[1.85]">
