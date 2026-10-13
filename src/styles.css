@@ -1421,33 +1421,50 @@ button {
   font-size: 2.6rem;
 }
 
-/* Answer pills float just over the edge of their own card. */
-.memory-card.answer-pending {
-  padding-bottom: 64px;
-  margin-bottom: 24px;
-}
+/* Answer pills hover inside each card, with a light bounce every second. */
 .memory-action.note-button {
-  position: absolute;
-  bottom: -24px;
-  left: 50%;
-  translate: -50% 0;
-  z-index: 1;
+  position: relative;
+  display: flex;
   width: max-content;
-  max-width: calc(100% - 40px);
+  max-width: 100%;
   min-height: 48px;
-  margin: 0;
+  margin: 28px auto 0;
   background: #fff4f8;
   border-color: #dda8bf;
   box-shadow:
     0 8px 20px #a9618026,
     0 2px 5px #a9618014;
+  animation: answer-hover-bounce 1s ease-in-out infinite;
+}
+.memory-card:nth-child(2n) .memory-action.note-button {
+  animation-delay: 0.25s;
+}
+.memory-action.note-button:focus-visible,
+.memory-action.note-button:active {
+  animation: none;
 }
 .memory-action.note-button:active {
   transform: translateY(2px) scale(0.98);
   box-shadow: 0 3px 9px #a9618020;
 }
+@keyframes answer-hover-bounce {
+  0%,
+  12%,
+  52%,
+  85%,
+  100% {
+    transform: translateY(0);
+  }
+  32% {
+    transform: translateY(-4px);
+  }
+  68% {
+    transform: translateY(-1.5px);
+  }
+}
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .memory-action.note-button:hover {
+    animation: none;
     transform: translateY(-3px);
     background: #fce7f0;
     box-shadow:
@@ -1456,6 +1473,9 @@ button {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .memory-action.note-button {
+    animation: none !important;
+  }
   .memory-action.note-button:active {
     transform: none;
   }
